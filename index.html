@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREX | Digital Engineering — Home</title>
+<meta name="description" content="Corex — Premium Digital Engineering and Infrastructure for Elite Global Brands.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ── HERO ── */
+#hero {
+  position:relative; width:100%; height:100vh; min-height:600px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+#hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.hero-vignette {
+  position:absolute; inset:0; z-index:1;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.7) 100%);
+}
+.hero-content {
+  position:relative; z-index:10;
+  text-align:center; padding:0 20px; max-width:940px;
+}
+.hero-eyebrow {
+  font-family:'Montserrat',sans-serif;
+  font-size:.58rem; font-weight:600;
+  letter-spacing:.55em; color:var(--gold);
+  margin-bottom:28px;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.hero-h1 {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(3rem,8vw,7rem);
+  font-weight:900; line-height:1.03;
+  letter-spacing:-.025em; color:var(--ivory);
+  margin-bottom:26px;
+  opacity:0; transform:translateY(24px);
+  transition:opacity 1s ease, transform 1s ease;
+}
+.hero-h1 .gold {
+  background:linear-gradient(135deg,#C9A063,#E8C98A 50%,#C9A063);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.hero-sub {
+  font-family:'Inter',sans-serif;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  font-weight:400; color:var(--muted);
+  line-height:1.85; max-width:560px; margin:0 auto 52px;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.hero-btns {
+  display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.scroll-hint {
+  position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+  z-index:10; display:flex; flex-direction:column; align-items:center; gap:8px;
+  opacity:.45; animation:bounceHint 2.2s ease infinite;
+}
+.scroll-hint span {
+  font-family:'Montserrat',sans-serif;
+  font-size:.5rem; letter-spacing:.45em; color:var(--gold);
+}
+.scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); }
+@keyframes bounceHint {
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  55%{transform:translateX(-50%) translateY(9px)}
+}
+
+/* ── STATS ── */
+.stats-row {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+}
+.stat-cell {
+  text-align:center; padding:50px 24px;
+  border-right:1px solid var(--border-dim);
+}
+.stat-cell:last-child { border-right:none; }
+.stat-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(2.4rem,4vw,3.6rem);
+  font-weight:800; display:block; margin-bottom:8px;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.stat-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:500;
+  letter-spacing:.35em; color:var(--muted);
+}
+
+/* ── PROCESS ── */
+#process { background:#000; }
+.process-intro { max-width:600px; margin-bottom:80px; }
+.process-wrap {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  border:1px solid var(--border-dim);
+  position:relative;
+}
+.process-wrap::after {
+  content:'';
+  position:absolute; top:75px; left:16.66%; right:16.66%;
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(201,160,99,.25),transparent);
+  pointer-events:none;
+}
+.proc-card {
+  padding:52px 40px;
+  border-right:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+  transition:background .4s;
+}
+.proc-card:hover { background:rgba(201,160,99,.03); }
+.proc-card:nth-child(3),.proc-card:nth-child(6) { border-right:none; }
+.proc-card:nth-child(4),.proc-card:nth-child(5),.proc-card:nth-child(6) { border-bottom:none; }
+.proc-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:.52rem; font-weight:700;
+  letter-spacing:.45em; color:rgba(201,160,99,.45);
+  margin-bottom:22px; display:block;
+}
+.proc-icon-ring {
+  width:68px; height:68px;
+  border:1px solid rgba(201,160,99,.18);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:28px;
+  transition:border-color .4s, box-shadow .4s;
+}
+.proc-card:hover .proc-icon-ring {
+  border-color:var(--gold);
+  box-shadow:0 0 28px rgba(201,160,99,.12);
+}
+.proc-icon-ring i { font-size:1.3rem; color:var(--gold); }
+.proc-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.28em; color:var(--ivory);
+  margin-bottom:14px;
+}
+.proc-text {
+  font-family:'Inter',sans-serif;
+  font-size:.88rem; color:var(--muted);
+  line-height:1.8; margin-bottom:20px;
+}
+.proc-tag {
+  display:inline-block;
+  font-family:'Montserrat',sans-serif;
+  font-size:.52rem; font-weight:700;
+  letter-spacing:.2em; color:var(--gold);
+  border:1px solid rgba(201,160,99,.28);
+  padding:5px 14px;
+}
+
+/* ── SERVICES PREVIEW ── */
+#services-preview { background:#000; border-top:1px solid var(--border-dim); }
+.svc-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border-dim);
+  gap:0;
+}
+.svc-card {
+  padding:62px 48px; position:relative; overflow:hidden;
+  border-right:1px solid var(--border-dim);
+  transition:background .4s;
+}
+.svc-card:last-child { border-right:none; }
+.svc-card::after {
+  content:'';
+  position:absolute; bottom:0; left:0;
+  width:0; height:1px; background:var(--gold);
+  transition:width .55s ease;
+}
+.svc-card:hover::after { width:100%; }
+.svc-card:hover { background:rgba(201,160,99,.025); }
+.svc-bg-num {
+  position:absolute; top:16px; right:24px;
+  font-family:'Montserrat',sans-serif;
+  font-size:7rem; font-weight:900;
+  color:rgba(201,160,99,.03); line-height:1;
+  pointer-events:none; user-select:none;
+}
+.svc-icon { font-size:1.7rem; color:var(--gold); margin-bottom:30px; display:block; }
+.svc-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.28em; color:var(--ivory);
+  margin-bottom:18px;
+}
+.svc-desc {
+  font-family:'Inter',sans-serif;
+  font-size:.9rem; color:var(--muted);
+  line-height:1.8; margin-bottom:32px;
+}
+.svc-link {
+  font-family:'Montserrat',sans-serif;
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.28em; color:var(--gold);
+  display:flex; align-items:center; gap:10px;
+  transition:gap .3s;
+}
+.svc-link:hover { gap:18px; }
+
+/* ── PHILOSOPHY ── */
+#philosophy {
+  text-align:center;
+  padding:160px 60px;
+  background:linear-gradient(180deg,#000 0%,#060402 100%);
+  position:relative; overflow:hidden;
+}
+.phil-glow {
+  position:absolute; bottom:-100px; left:50%; transform:translateX(-50%);
+  width:600px; height:400px;
+  background:radial-gradient(ellipse at center,rgba(201,160,99,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.phil-icon { font-size:3.2rem; color:var(--gold); margin-bottom:36px; opacity:.8; display:block; }
+.phil-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700; letter-spacing:.06em;
+  color:var(--ivory); margin-bottom:28px;
+}
+.phil-text {
+  font-family:'Inter',sans-serif;
+  font-size:1.05rem; color:var(--muted);
+  max-width:680px; margin:0 auto 48px;
+  line-height:2.05;
+}
+
+/* ── REVIEWS ── */
+#reviews { background:#000; overflow:hidden; }
+.review-wrap { max-width:860px; margin:0 auto; }
+.review-slider { position:relative; }
+.rslide {
+  display:none; text-align:center;
+  padding:64px 48px;
+  border:1px solid var(--border-dim);
+  background:rgba(201,160,99,.02);
+  animation:fadeSlide .5s ease;
+}
+.rslide.on { display:block; }
+@keyframes fadeSlide { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.rquote-icon { font-size:2.8rem; color:rgba(201,160,99,.12); margin-bottom:24px; display:block; }
+.rtext {
+  font-family:'Inter',sans-serif;
+  font-size:clamp(1rem,1.8vw,1.15rem);
+  font-style:italic; color:var(--ivory);
+  line-height:1.95; margin-bottom:36px; opacity:.88;
+}
+.rstars { display:flex; justify-content:center; gap:6px; color:var(--gold); font-size:.8rem; margin-bottom:28px; }
+.rauthor { display:flex; align-items:center; justify-content:center; gap:18px; }
+.ravatar {
+  width:50px; height:50px; border-radius:50%;
+  object-fit:cover; border:1px solid rgba(201,160,99,.3);
+  background:rgba(201,160,99,.1);
+}
+.rname {
+  font-family:'Montserrat',sans-serif;
+  font-size:.75rem; font-weight:700;
+  letter-spacing:.12em; color:var(--ivory);
+}
+.rrole {
+  font-family:'Inter',sans-serif;
+  font-size:.72rem; color:var(--gold); margin-top:3px;
+}
+.rdots {
+  display:flex; justify-content:center; gap:10px; margin-top:44px;
+}
+.rdot {
+  width:20px; height:1px;
+  background:rgba(201,160,99,.25);
+  cursor:pointer; transition:all .3s; border:none;
+}
+.rdot.on { width:44px; background:var(--gold); }
+
+/* ── CTA BAND ── */
+#cta-band {
+  text-align:center;
+  background:linear-gradient(135deg,rgba(201,160,99,.07) 0%,rgba(0,0,0,0) 100%);
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+  padding:130px 60px;
+}
+.cta-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(2rem,4vw,3.4rem);
+  font-weight:700; letter-spacing:-.02em;
+  color:var(--ivory); margin-bottom:20px; max-width:680px; margin-left:auto; margin-right:auto;
+}
+.cta-sub {
+  font-family:'Inter',sans-serif;
+  font-size:.98rem; color:var(--muted);
+  max-width:480px; margin:0 auto 48px; line-height:1.85;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  .stats-row { grid-template-columns:repeat(2,1fr); }
+  .stat-cell:nth-child(2) { border-right:none; }
+  .stat-cell:nth-child(3) { border-top:1px solid var(--border-dim); }
+  .process-wrap { grid-template-columns:1fr; }
+  .process-wrap::after { display:none; }
+  .proc-card { border-right:none!important; }
+  .proc-card:nth-child(n) { border-bottom:1px solid var(--border-dim); }
+  .proc-card:last-child { border-bottom:none; }
+  .svc-grid { grid-template-columns:1fr; }
+  .svc-card { border-right:none; border-bottom:1px solid var(--border-dim); }
+  .svc-card:last-child { border-bottom:none; }
+}
+@media (max-width:600px) {
+  #philosophy { padding:110px 24px; }
+  #cta-band { padding:90px 24px; }
+  .rslide { padding:44px 24px; }
+  .stats-row { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <img src="logo.png" alt="Corex" class="loader-logo">
+  <div class="loader-sub">DIGITAL ENGINEERING</div>
+  <div class="loader-track"><div class="loader-fill" id="lf"></div></div>
+</div>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="drawer">
+  <nav class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()"><span class="d-num">01</span><span class="d-label">HOME</span></a>
+    <a href="about.html" onclick="closeDrawer()"><span class="d-num">02</span><span class="d-label">ABOUT</span></a>
+    <a href="services.html" onclick="closeDrawer()"><span class="d-num">03</span><span class="d-label">SERVICES</span></a>
+    <a href="clients.html" onclick="closeDrawer()"><span class="d-num">04</span><span class="d-label">CLIENTS</span></a>
+    <a href="contact.html" onclick="closeDrawer()"><span class="d-num">05</span><span class="d-label">CONNECT</span></a>
+  </nav>
+  <div class="drawer-bottom">
+    <div class="drawer-social">
+      <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <span class="drawer-brand">COREX.DIGITAL</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Corex" class="cx-mark">
+    <span class="nav-wordmark">COREX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="services.html">SERVICES</a></li>
+    <li><a href="clients.html">CLIENTS</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">CONNECT</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="he">COREX | DIGITAL ENGINEERING</p>
+    <h1 class="hero-h1" id="hh">
+      ARCHITECTING<br><span class="gold">DIGITAL LEGACIES.</span>
+    </h1>
+    <p class="hero-sub" id="hs">
+      Premium Digital Engineering and Infrastructure for Elite Global Brands.
+    </p>
+    <div class="hero-btns" id="hb">
+      <a href="contact.html" class="btn-gold"><span>ENGINEER YOUR FOUNDATION</span></a>
+      <a href="services.html" class="btn-outline">EXPLORE SERVICES</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-cell reveal">
+    <span class="stat-num" data-target="50">0</span>
+    <span class="stat-lbl">ELITE CLIENTS</span>
+  </div>
+  <div class="stat-cell reveal reveal-d1">
+    <span class="stat-num" data-target="120">0</span>
+    <span class="stat-lbl">PROJECTS DELIVERED</span>
+  </div>
+  <div class="stat-cell reveal reveal-d2">
+    <span class="stat-num" data-target="98" data-suffix="%">0</span>
+    <span class="stat-lbl">CLIENT RETENTION</span>
+  </div>
+  <div class="stat-cell reveal reveal-d3">
+    <span class="stat-num" data-target="5">0</span>
+    <span class="stat-lbl">YEARS ENGINEERING</span>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process" class="section-pad">
+  <div class="process-intro reveal">
+    <span class="eyebrow">HOW WE WORK</span>
+    <h2 class="section-title">THE COREX<br><span class="gold-title">PROCESS</span></h2>
+    <div class="divider"></div>
+    <p class="body-text">A transparent, structured approach engineered around precision, accountability, and elite delivery standards.</p>
+  </div>
+  <div class="process-wrap">
+    <div class="proc-card reveal">
+      <span class="proc-num">01</span>
+      <div class="proc-icon-ring"><i class="fas fa-search"></i></div>
+      <h3 class="proc-title">DISCOVERY AUDIT</h3>
+      <p class="proc-text">Deep-dive analysis of your current digital presence. No generic proposals — only precision strategies built for your brand.</p>
+      <span class="proc-tag">FREE CONSULTATION</span>
+    </div>
+    <div class="proc-card reveal reveal-d1">
+      <span class="proc-num">02</span>
+      <div class="proc-icon-ring"><i class="fas fa-coins"></i></div>
+      <h3 class="proc-title">RETAINER INITIATION</h3>
+      <p class="proc-text">A 25% advance retainer secures your project slot and initiates the engineering phase. Work begins within 24 hours of confirmation.</p>
+      <span class="proc-tag">25% ADVANCE</span>
+    </div>
+    <div class="proc-card reveal reveal-d2">
+      <span class="proc-num">03</span>
+      <div class="proc-icon-ring"><i class="fas fa-drafting-compass"></i></div>
+      <h3 class="proc-title">ARCHITECTURE PHASE</h3>
+      <p class="proc-text">Our engineers design your complete digital architecture — every component mapped, optimized, and aligned with your brand vision.</p>
+      <span class="proc-tag">STRATEGY</span>
+    </div>
+    <div class="proc-card reveal">
+      <span class="proc-num">04</span>
+      <div class="proc-icon-ring"><i class="fas fa-cogs"></i></div>
+      <h3 class="proc-title">PRECISION ENGINEERING</h3>
+      <p class="proc-text">Structured 5–7 day delivery sprints with daily progress reports. Every milestone is documented and client-approved before advancing.</p>
+      <span class="proc-tag">5–7 DAYS</span>
+    </div>
+    <div class="proc-card reveal reveal-d1">
+      <span class="proc-num">05</span>
+      <div class="proc-icon-ring"><i class="fas fa-shield-alt"></i></div>
+      <h3 class="proc-title">QUALITY GATE</h3>
+      <p class="proc-text">Rigorous multi-layer QA review before delivery. Performance, security, and aesthetic standards are verified against elite benchmarks.</p>
+      <span class="proc-tag">QA ASSURED</span>
+    </div>
+    <div class="proc-card reveal reveal-d2">
+      <span class="proc-num">06</span>
+      <div class="proc-icon-ring"><i class="fas fa-rocket"></i></div>
+      <h3 class="proc-title">DEPLOY & SETTLE</h3>
+      <p class="proc-text">Full deployment with handover documentation. Final balance settled upon your complete satisfaction. Ongoing alliance support available.</p>
+      <span class="proc-tag">BALANCE DUE</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section id="services-preview" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">OUR EXPERTISE</span>
+    <h2 class="section-title">CORE ENGINEERING<br><span class="gold-title">PILLARS</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <span class="svc-bg-num">01</span>
+      <i class="fas fa-code svc-icon"></i>
+      <h3 class="svc-name">WEB DEVELOPMENT</h3>
+      <p class="svc-desc">Scalable, high-performance web platforms engineered for dominance. From architecture to deployment, every line of code is intentional.</p>
+      <a href="services.html" class="svc-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="svc-card reveal reveal-d1">
+      <span class="svc-bg-num">02</span>
+      <i class="fas fa-chart-line svc-icon"></i>
+      <h3 class="svc-name">SEO & SEARCH DOMINATION</h3>
+      <p class="svc-desc">Data-driven SEO strategies for global visibility and local precision. We engineer your digital authority from the ground up.</p>
+      <a href="services.html" class="svc-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="svc-card reveal reveal-d2">
+      <span class="svc-bg-num">03</span>
+      <i class="fas fa-link svc-icon"></i>
+      <h3 class="svc-name">SOCIAL SYNC</h3>
+      <p class="svc-desc">Unified digital identity and synchronized presence across all platforms. One voice, infinite reach, zero inconsistency.</p>
+      <a href="services.html" class="svc-link">LEARN MORE <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="phil-glow"></div>
+  <div class="reveal">
+    <i class="fas fa-atom phil-icon"></i>
+    <h2 class="phil-title">THE PRECISION ALLIANCE.</h2>
+    <p class="phil-text">We don't provide services; we forge long-term strategic alliances. Every pixel is calculated, every line of code is optimized, and every decision is engineered to elevate your brand value to elite status.</p>
+    <a href="about.html" class="btn-ghost-gold">OUR PHILOSOPHY</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">CLIENT TESTIMONY</span>
+    <h2 class="section-title">WORDS FROM<br><span class="gold-title">THE ELITE</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="review-wrap">
+    <div class="review-slider">
+      <div class="rslide on">
+        <i class="fas fa-quote-left rquote-icon"></i>
+        <p class="rtext">"Corex didn't just build our website — they engineered our entire digital presence. The precision and attention to detail is unlike anything I've encountered. Our traffic increased 340% in three months."</p>
+        <div class="rstars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="rauthor">
+          <img src="https://i.pravatar.cc/100?img=11" alt="Alexander Stone" class="ravatar">
+          <div>
+            <p class="rname">ALEXANDER STONE</p>
+            <p class="rrole">CEO, Stone Capital Group</p>
+          </div>
+        </div>
+      </div>
+      <div class="rslide">
+        <i class="fas fa-quote-left rquote-icon"></i>
+        <p class="rtext">"The 5-day delivery was unreal. What other agencies took months to promise, Corex delivered in under a week. Our conversion rate nearly doubled since launch. Absolutely elite work, zero compromises."</p>
+        <div class="rstars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="rauthor">
+          <img src="https://i.pravatar.cc/100?img=25" alt="Sophia Marlowe" class="ravatar">
+          <div>
+            <p class="rname">SOPHIA MARLOWE</p>
+            <p class="rrole">Founder, Marlowe Luxury Brand</p>
+          </div>
+        </div>
+      </div>
+      <div class="rslide">
+        <i class="fas fa-quote-left rquote-icon"></i>
+        <p class="rtext">"Working with Corex felt like having a Formula 1 pit crew for our brand. Every move was calculated, fast, and flawless. Our Google rankings went from page 4 to position 1 in 8 weeks."</p>
+        <div class="rstars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="rauthor">
+          <img src="https://i.pravatar.cc/100?img=33" alt="Marcus Chen" class="ravatar">
+          <div>
+            <p class="rname">MARCUS CHEN</p>
+            <p class="rrole">Director, Vertex Technologies</p>
+          </div>
+        </div>
+      </div>
+      <div class="rdots">
+        <button class="rdot on" onclick="goSlide(0)"></button>
+        <button class="rdot" onclick="goSlide(1)"></button>
+        <button class="rdot" onclick="goSlide(2)"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section id="cta-band">
+  <div class="reveal">
+    <span class="eyebrow">READY TO ENGINEER YOUR LEGACY?</span>
+    <h2 class="cta-title">SECURE YOUR <span class="gold-title">CORE</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="cta-sub">Consult with our digital engineers to architect your elite digital ecosystem. Limited alliance spots available each quarter.</p>
+    <a href="contact.html" class="btn-gold"><span>BOOK YOUR AUDIT</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Corex" class="footer-cx">
+    <span class="footer-brand">COREX.DIGITAL</span>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="services.html">SERVICES</a>
+    <a href="clients.html">CLIENTS</a>
+    <a href="contact.html">CONNECT</a>
+  </nav>
+  <p class="footer-copy">© 2026 COREX | DIGITAL ENGINEERING</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=(e.clientX-4)+'px';
+  cur.style.top=(e.clientY-4)+'px';
+  ring.style.left=(e.clientX-16)+'px';
+  ring.style.top=(e.clientY-16)+'px';
+});
+
+/* ── LOADER ── */
+(function(){
+  if(sessionStorage.getItem('cx-loaded')){
+    document.getElementById('loader').style.display='none';
+    setTimeout(revealHero,80);
+    return;
+  }
+  sessionStorage.setItem('cx-loaded','1');
+  window.addEventListener('load',()=>{
+    const lf=document.getElementById('lf');
+    lf.style.width='100%';
+    setTimeout(()=>{
+      document.getElementById('loader').style.opacity='0';
+      setTimeout(()=>{
+        document.getElementById('loader').style.display='none';
+        revealHero();
+      },900);
+    },1600);
+  });
+})();
+
+function revealHero(){
+  const els=[
+    {el:'he',d:0},{el:'hh',d:250},{el:'hs',d:550},{el:'hb',d:850}
+  ];
+  els.forEach(({el,d})=>{
+    setTimeout(()=>{
+      const e=document.getElementById(el);
+      e.style.opacity='1';
+      e.style.transform='translateY(0)';
+    },d);
+  });
+}
+
+/* ── MOBILE NAV ── */
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeDrawer(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ── THREE.JS HERO ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('hero-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.1,1000);
+  camera.position.z=5;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  const gMat=(op=.18)=>new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:op});
+
+  // Central icosahedron
+  const ico=new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,1),gMat(.12));
+  scene.add(ico);
+  // Inner solid
+  const innerIco=new THREE.Mesh(new THREE.IcosahedronGeometry(.6,0),new THREE.MeshBasicMaterial({color:0xC9A063,transparent:true,opacity:.06}));
+  scene.add(innerIco);
+
+  // Rings
+  const makeRing=(r,ox,oy,oz,op)=>{
+    const m=new THREE.Mesh(new THREE.TorusGeometry(r,.005,16,120),new THREE.MeshBasicMaterial({color:0xC9A063,transparent:true,opacity:op}));
+    m.rotation.set(ox,oy,oz); scene.add(m); return m;
+  };
+  const r1=makeRing(2.6,Math.PI/3,0,0,.22);
+  const r2=makeRing(3,Math.PI/6,Math.PI/4,0,.12);
+  const r3=makeRing(3.5,Math.PI/2,Math.PI/3,.5,.07);
+
+  // Orbiting nodes
+  const nodes=[];
+  for(let i=0;i<10;i++){
+    const m=new THREE.Mesh(new THREE.OctahedronGeometry(.07,0),new THREE.MeshBasicMaterial({color:0xE8C98A,transparent:true,opacity:.7}));
+    const a=(i/10)*Math.PI*2;
+    const rad=2.4+Math.random()*.4;
+    nodes.push({m,a,rad,spd:.008+Math.random()*.004,yi:Math.random()*Math.PI*2});
+    scene.add(m);
+  }
+
+  // Particles
+  const pCount=1800;
+  const pPos=new Float32Array(pCount*3);
+  for(let i=0;i<pCount*3;i++) pPos[i]=(Math.random()-.5)*22;
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  const pts=new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.014,transparent:true,opacity:.35}));
+  scene.add(pts);
+
+  // Connection lines between nearby nodes
+  const lineGeo=new THREE.BufferGeometry();
+  const lineVerts=new Float32Array(nodes.length*nodes.length*6);
+  const lineMat=new THREE.LineSegments(lineGeo,new THREE.LineBasicMaterial({color:0xC9A063,transparent:true,opacity:.08}));
+  scene.add(lineMat);
+
+  let mx=0,my=0;
+  document.addEventListener('mousemove',e=>{
+    mx=(e.clientX/innerWidth-.5)*2;
+    my=(e.clientY/innerHeight-.5)*2;
+  });
+  window.addEventListener('resize',()=>{
+    camera.aspect=innerWidth/innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);
+  });
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.004;
+    ico.rotation.x=t*.18; ico.rotation.y=t*.27;
+    innerIco.rotation.x=-t*.3; innerIco.rotation.y=t*.22;
+    r1.rotation.z=t*.12;
+    r2.rotation.z=-t*.08;
+    r3.rotation.y=t*.06;
+
+    nodes.forEach((n,i)=>{
+      n.a+=n.spd;
+      n.m.position.x=Math.cos(n.a)*n.rad;
+      n.m.position.y=Math.sin(n.a*.6+n.yi)*1.1;
+      n.m.position.z=Math.sin(n.a)*n.rad;
+      n.m.rotation.x+=.025; n.m.rotation.y+=.015;
+    });
+
+    // Update lines
+    let vi=0;
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const d=nodes[i].m.position.distanceTo(nodes[j].m.position);
+        if(d<2.5){
+          lineVerts[vi++]=nodes[i].m.position.x;
+          lineVerts[vi++]=nodes[i].m.position.y;
+          lineVerts[vi++]=nodes[i].m.position.z;
+          lineVerts[vi++]=nodes[j].m.position.x;
+          lineVerts[vi++]=nodes[j].m.position.y;
+          lineVerts[vi++]=nodes[j].m.position.z;
+        }else{ for(let k=0;k<6;k++) lineVerts[vi++]=0; }
+      }
+    }
+    lineGeo.setAttribute('position',new THREE.BufferAttribute(lineVerts,3));
+    lineGeo.attributes.position.needsUpdate=true;
+
+    scene.rotation.y+=(mx*.35-scene.rotation.y)*.025;
+    scene.rotation.x+=(-my*.18-scene.rotation.x)*.025;
+    pts.rotation.y=t*.04;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── REVEAL ON SCROLL ── */
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+reveals.forEach(el=>io.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+const counters=document.querySelectorAll('[data-target]');
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target;
+    const target=+el.dataset.target;
+    const suf=el.dataset.suffix||'+';
+    let n=0; const step=target/60;
+    const t=setInterval(()=>{
+      n+=step;
+      if(n>=target){n=target;clearInterval(t);}
+      el.textContent=Math.floor(n)+suf;
+    },25);
+    cio.unobserve(el);
+  });
+},{threshold:.5});
+counters.forEach(el=>cio.observe(el));
+
+/* ── REVIEW SLIDER ── */
+let cur_slide=0;
+const slides=document.querySelectorAll('.rslide');
+const dots=document.querySelectorAll('.rdot');
+function goSlide(n){
+  slides[cur_slide].classList.remove('on');
+  dots[cur_slide].classList.remove('on');
+  cur_slide=n;
+  slides[cur_slide].classList.add('on');
+  dots[cur_slide].classList.add('on');
+}
+setInterval(()=>goSlide((cur_slide+1)%slides.length),5500);
+</script>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREX | Connect</title>
+<meta name="description" content="Book your discovery audit with Corex Digital Engineering.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ── CONTACT LAYOUT ── */
+#contact-main {
+  display:grid; grid-template-columns:1.1fr 1fr; gap:0;
+  border-top:1px solid var(--border-dim);
+}
+
+/* ── FORM SECTION ── */
+.form-section {
+  padding:100px 70px 100px 60px;
+  border-right:1px solid var(--border-dim);
+}
+.form-header { margin-bottom:56px; }
+.form-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Montserrat',sans-serif;
+  font-size:.52rem; font-weight:700;
+  letter-spacing:.4em; color:var(--gold);
+  border:1px solid rgba(201,160,99,.2);
+  padding:7px 16px; margin-bottom:24px;
+}
+.form-badge i { font-size:.6rem; }
+
+form#cxform { display:flex; flex-direction:column; gap:24px; }
+
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+
+.field-wrap { display:flex; flex-direction:column; gap:8px; position:relative; }
+.field-label {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.38em; color:var(--muted);
+}
+.field-input, .field-textarea, .field-select {
+  width:100%; padding:16px 18px;
+  background:rgba(201,160,99,.04);
+  border:1px solid rgba(201,160,99,.14);
+  color:var(--ivory);
+  font-family:'Inter',sans-serif; font-size:.9rem;
+  outline:none; transition:border-color .3s, background .3s;
+  appearance:none; -webkit-appearance:none;
+  border-radius:0;
+}
+.field-input::placeholder, .field-textarea::placeholder { color:rgba(253,253,253,.2); }
+.field-input:focus, .field-textarea:focus, .field-select:focus {
+  border-color:rgba(201,160,99,.45);
+  background:rgba(201,160,99,.07);
+}
+.field-select { cursor:pointer; }
+.field-select option { background:#0d0d0d; color:var(--ivory); }
+.field-textarea { resize:vertical; min-height:140px; line-height:1.7; }
+
+.form-check-group { display:flex; flex-direction:column; gap:12px; }
+.form-check {
+  display:flex; align-items:center; gap:12px; cursor:pointer;
+  font-family:'Inter',sans-serif; font-size:.85rem; color:var(--muted);
+}
+.form-check input[type=checkbox] { display:none; }
+.check-box {
+  width:16px; height:16px; flex-shrink:0;
+  border:1px solid rgba(201,160,99,.3);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .3s, background .3s;
+}
+.form-check input:checked + .check-box {
+  border-color:var(--gold); background:var(--gold);
+}
+.form-check input:checked + .check-box::after {
+  content:'✓'; font-size:.6rem; color:#000;
+}
+.form-check:hover .check-box { border-color:var(--gold); }
+
+.form-submit-row {
+  display:flex; align-items:center; gap:20px;
+  flex-wrap:wrap; margin-top:8px;
+}
+.form-note {
+  font-family:'Inter',sans-serif;
+  font-size:.75rem; color:var(--muted);
+  flex:1;
+}
+.form-note i { color:var(--gold); margin-right:5px; }
+
+#form-success {
+  display:none; text-align:center; padding:40px;
+  border:1px solid rgba(201,160,99,.2);
+  background:rgba(201,160,99,.04);
+}
+#form-success i { font-size:2.5rem; color:var(--gold); margin-bottom:16px; display:block; }
+#form-success h3 {
+  font-family:'Montserrat',sans-serif;
+  font-size:1rem; font-weight:700;
+  letter-spacing:.2em; color:var(--ivory); margin-bottom:10px;
+}
+#form-success p { font-family:'Inter',sans-serif; font-size:.88rem; color:var(--muted); }
+
+/* ── INFO SECTION ── */
+.info-section { padding:100px 60px; }
+
+.process-mini { margin-bottom:64px; }
+.pmi-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.45em; color:var(--gold);
+  margin-bottom:28px; display:block;
+}
+.pmi-item {
+  display:flex; gap:20px; padding:18px 0;
+  border-bottom:1px solid var(--border-dim);
+}
+.pmi-item:last-child { border-bottom:none; }
+.pmi-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.3em; color:rgba(201,160,99,.4);
+  flex-shrink:0; padding-top:3px; width:30px;
+}
+.pmi-content {}
+.pmi-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:.68rem; font-weight:700;
+  letter-spacing:.2em; color:var(--ivory);
+  margin-bottom:5px;
+}
+.pmi-desc { font-family:'Inter',sans-serif; font-size:.82rem; color:var(--muted); line-height:1.7; }
+.pmi-badge {
+  display:inline-block; margin-top:8px;
+  font-family:'Montserrat',sans-serif;
+  font-size:.48rem; font-weight:700;
+  letter-spacing:.22em; color:var(--gold);
+  border:1px solid rgba(201,160,99,.22); padding:4px 10px;
+}
+
+.contact-details { margin-bottom:48px; }
+.cd-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.45em; color:var(--gold);
+  margin-bottom:24px; display:block;
+}
+.cd-item {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 0; border-bottom:1px solid var(--border-dim);
+  font-family:'Inter',sans-serif; font-size:.88rem; color:var(--muted);
+}
+.cd-item:last-child { border-bottom:none; }
+.cd-item i { color:var(--gold); font-size:.9rem; width:18px; text-align:center; flex-shrink:0; }
+
+.social-links { display:flex; gap:12px; }
+.social-link {
+  width:40px; height:40px;
+  border:1px solid rgba(201,160,99,.18);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted); font-size:.9rem;
+  transition:border-color .3s, color .3s, background .3s;
+}
+.social-link:hover { border-color:var(--gold); color:var(--gold); background:rgba(201,160,99,.06); }
+
+/* ── FAQ ── */
+#faq { border-top:1px solid var(--border-dim); }
+.faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.faq-item {
+  padding:40px 48px; border-right:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim); cursor:pointer;
+  transition:background .3s;
+}
+.faq-item:nth-child(even) { border-right:none; }
+.faq-item:nth-last-child(-n+2) { border-bottom:none; }
+.faq-item:hover { background:rgba(201,160,99,.025); }
+.faq-q {
+  font-family:'Montserrat',sans-serif;
+  font-size:.72rem; font-weight:700;
+  letter-spacing:.14em; color:var(--ivory);
+  margin-bottom:14px;
+  display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+}
+.faq-q i { color:var(--gold); font-size:.7rem; flex-shrink:0; margin-top:2px; }
+.faq-a {
+  font-family:'Inter',sans-serif;
+  font-size:.87rem; color:var(--muted); line-height:1.8;
+  display:block;
+}
+
+/* ── BOOKING SECTION ── */
+#booking {
+  text-align:center; border-top:1px solid var(--border-dim);
+  background:linear-gradient(135deg,rgba(201,160,99,.07),rgba(0,0,0,0));
+  padding:130px 60px; position:relative; overflow:hidden;
+}
+.booking-glow {
+  position:absolute; bottom:-100px; left:50%; transform:translateX(-50%);
+  width:600px; height:400px;
+  background:radial-gradient(ellipse,rgba(201,160,99,.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1100px) {
+  #contact-main { grid-template-columns:1fr; }
+  .form-section { border-right:none; border-bottom:1px solid var(--border-dim); padding:80px 40px; }
+  .info-section { padding:80px 40px; }
+  .faq-grid { grid-template-columns:1fr; }
+  .faq-item { border-right:none!important; }
+  .faq-item:nth-last-child(-n+2) { border-bottom:1px solid var(--border-dim); }
+  .faq-item:last-child { border-bottom:none; }
+}
+@media (max-width:768px) {
+  .form-row { grid-template-columns:1fr; }
+  .form-section, .info-section { padding:70px 22px; }
+  #booking { padding:90px 22px; }
+  .form-submit-row { flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<div id="loader">
+  <img src="logo.png" alt="Corex" class="loader-logo">
+  <div class="loader-sub">DIGITAL ENGINEERING</div>
+  <div class="loader-track"><div class="loader-fill" id="lf"></div></div>
+</div>
+
+<div class="mobile-drawer" id="drawer">
+  <nav class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()"><span class="d-num">01</span><span class="d-label">HOME</span></a>
+    <a href="about.html" onclick="closeDrawer()"><span class="d-num">02</span><span class="d-label">ABOUT</span></a>
+    <a href="services.html" onclick="closeDrawer()"><span class="d-num">03</span><span class="d-label">SERVICES</span></a>
+    <a href="clients.html" onclick="closeDrawer()"><span class="d-num">04</span><span class="d-label">CLIENTS</span></a>
+    <a href="contact.html" onclick="closeDrawer()"><span class="d-num">05</span><span class="d-label">CONNECT</span></a>
+  </nav>
+  <div class="drawer-bottom">
+    <div class="drawer-social">
+      <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <span class="drawer-brand">COREX.DIGITAL</span>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Corex" class="cx-mark">
+    <span class="nav-wordmark">COREX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="services.html">SERVICES</a></li>
+    <li><a href="clients.html">CLIENTS</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta active" style="color:var(--black);background:var(--gold);">CONNECT</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <canvas class="banner-canvas" id="banner-canvas"></canvas>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.75) 100%);z-index:1;"></div>
+  <div class="banner-content">
+    <span class="eyebrow">BEGIN YOUR ALLIANCE</span>
+    <h1 class="banner-title">SECURE<br><span style="background:linear-gradient(135deg,#C9A063,#E8C98A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">YOUR CORE</span></h1>
+    <div class="banner-divider"></div>
+    <p class="banner-sub">Consult with our engineers to architect your elite digital ecosystem.</p>
+  </div>
+</div>
+
+<!-- CONTACT MAIN -->
+<div id="contact-main">
+
+  <!-- FORM -->
+  <div class="form-section">
+    <div class="form-header reveal">
+      <span class="form-badge"><i class="fas fa-circle" style="font-size:.4rem;animation:pulse 1.5s ease infinite;"></i> ACCEPTING NEW ALLIANCES</span>
+      <span class="eyebrow">START YOUR PROJECT</span>
+      <h2 class="section-title">ENGINEER YOUR<br><span class="gold-title">FOUNDATION</span></h2>
+      <div class="divider"></div>
+      <p class="body-text">Complete the brief below and our lead engineer will respond within 12 hours with a personalised strategy overview.</p>
+    </div>
+
+    <form id="cxform" class="reveal">
+      <div class="form-row">
+        <div class="field-wrap">
+          <label class="field-label" for="fname">FIRST NAME *</label>
+          <input class="field-input" id="fname" name="fname" type="text" placeholder="Alexander" required>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="lname">LAST NAME *</label>
+          <input class="field-input" id="lname" name="lname" type="text" placeholder="Stone" required>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="email">EMAIL ADDRESS *</label>
+        <input class="field-input" id="email" name="email" type="email" placeholder="alex@stonecapital.com" required>
+      </div>
+      <div class="form-row">
+        <div class="field-wrap">
+          <label class="field-label" for="company">COMPANY / BRAND *</label>
+          <input class="field-input" id="company" name="company" type="text" placeholder="Stone Capital Group" required>
+        </div>
+        <div class="field-wrap">
+          <label class="field-label" for="phone">PHONE NUMBER</label>
+          <input class="field-input" id="phone" name="phone" type="tel" placeholder="+44 20 xxxx xxxx">
+        </div>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="service">SERVICE REQUIRED *</label>
+        <select class="field-select" id="service" name="service" required>
+          <option value="" disabled selected>Select your primary requirement...</option>
+          <option value="web">Web Development</option>
+          <option value="seo">SEO & Search Domination</option>
+          <option value="social">Social Sync</option>
+          <option value="full">Full Digital Engineering (All Services)</option>
+          <option value="audit">Discovery Audit (Free)</option>
+          <option value="other">Other / Custom Requirement</option>
+        </select>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="budget">INVESTMENT RANGE</label>
+        <select class="field-select" id="budget" name="budget">
+          <option value="" disabled selected>Select your budget range...</option>
+          <option value="1500">1,500 – 3,000</option>
+          <option value="3000">3,000 – 7,500</option>
+          <option value="7500">7,500 – 15,000</option>
+          <option value="15000">15,000 – 30,000</option>
+          <option value="30000">30,000+</option>
+        </select>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" for="message">PROJECT BRIEF *</label>
+        <textarea class="field-textarea" id="message" name="message" placeholder="Describe your project, current challenges, and what success looks like for you..." required></textarea>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label" style="margin-bottom:4px;">SERVICES OF INTEREST</label>
+        <div class="form-check-group">
+          <label class="form-check">
+            <input type="checkbox" name="chk_web"><span class="check-box"></span>Web Development
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="chk_seo"><span class="check-box"></span>SEO & Search Domination
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="chk_social"><span class="check-box"></span>Social Sync
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="chk_audit"><span class="check-box"></span>Free Discovery Audit
+          </label>
+        </div>
+      </div>
+      <div class="form-submit-row">
+        <button type="submit" class="btn-gold"><span>SUBMIT YOUR BRIEF</span></button>
+        <p class="form-note"><i class="fas fa-lock"></i>Your details are confidential and never shared.</p>
+      </div>
+    </form>
+
+    <div id="form-success">
+      <i class="fas fa-check-circle"></i>
+      <h3>BRIEF RECEIVED</h3>
+      <p>Your alliance request has been logged. Our lead engineer will contact you within 12 business hours with a personalised response.</p>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-section">
+    <div class="reveal">
+      <div class="process-mini">
+        <span class="pmi-title">WHAT HAPPENS NEXT</span>
+        <div class="pmi-item">
+          <span class="pmi-num">01</span>
+          <div class="pmi-content">
+            <h4 class="pmi-name">BRIEF REVIEW</h4>
+            <p class="pmi-desc">Our lead engineer reviews your submission and researches your brand and market within 12 hours.</p>
+            <span class="pmi-badge">12 HOURS</span>
+          </div>
+        </div>
+        <div class="pmi-item">
+          <span class="pmi-num">02</span>
+          <div class="pmi-content">
+            <h4 class="pmi-name">STRATEGY CALL</h4>
+            <p class="pmi-desc">30-minute discovery call to align on vision, objectives, and define the engineering scope precisely.</p>
+            <span class="pmi-badge">FREE</span>
+          </div>
+        </div>
+        <div class="pmi-item">
+          <span class="pmi-num">03</span>
+          <div class="pmi-content">
+            <h4 class="pmi-name">PROPOSAL DELIVERY</h4>
+            <p class="pmi-desc">Custom engineering proposal with timeline, deliverables, and investment breakdown sent within 24 hours of the call.</p>
+            <span class="pmi-badge">24 HOURS</span>
+          </div>
+        </div>
+        <div class="pmi-item">
+          <span class="pmi-num">04</span>
+          <div class="pmi-content">
+            <h4 class="pmi-name">ALLIANCE BEGINS</h4>
+            <p class="pmi-desc">25% advance retainer initiates the project. Engineering begins within 24 hours. 5–7 day delivery sprint commences.</p>
+            <span class="pmi-badge">25% ADVANCE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-details">
+        <span class="cd-title">DIRECT CONTACT</span>
+        <div class="cd-item"><i class="fas fa-envelope"></i>inf0@corex.com</div>
+        <div class="cd-item"><i class="fab fa-whatsapp"></i>+966556175626</div>
+        <div class="cd-item"><i class="fas fa-clock"></i>Response within 12 business hours</div>
+        <div class="cd-item"><i class="fas fa-globe"></i>Available globally · Remote-first</div>
+      </div>
+
+      <span class="cd-title">FIND US</span>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener" class="social-link"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/966556175626" target="_blank" rel="noopener" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section id="faq" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">QUICK ANSWERS</span>
+    <h2 class="section-title">FREQUENTLY<br><span class="gold-title">ASKED</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item reveal">
+      <div class="faq-q">How long does a project actually take? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">Our standard delivery sprint is 5–7 business days for web development and social sync projects. SEO campaigns are ongoing with measurable results typically visible within 4–8 weeks.</span>
+    </div>
+    <div class="faq-item reveal reveal-d1">
+      <div class="faq-q">What does the 25% advance cover? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">The 25% retainer secures your project slot, covers initial discovery, strategy, and architecture phases, and initiates the engineering sprint. The remaining 75% is due upon your full satisfaction at delivery.</span>
+    </div>
+    <div class="faq-item reveal reveal-d2">
+      <div class="faq-q">Do you work with startups or only enterprises? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">We work with any brand that demands elite digital standards — from ambitious funded startups to established enterprises. What matters is your commitment to excellence, not your current size.</span>
+    </div>
+    <div class="faq-item reveal reveal-d3">
+      <div class="faq-q">What if I'm not satisfied with the delivery? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">Your satisfaction is contractually guaranteed. If deliverables don't meet the agreed specifications, we continue revisions at no additional cost until they do. We've never had an unresolved satisfaction issue.</span>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Can you handle the entire digital stack? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">Yes. Many of our elite alliances engage all three services simultaneously — Web Development, SEO, and Social Sync — creating a completely unified and optimized digital ecosystem for maximum impact.</span>
+    </div>
+    <div class="faq-item reveal reveal-d1">
+      <div class="faq-q">How do you measure and report results? <i class="fas fa-plus"></i></div>
+      <span class="faq-a">We provide detailed performance dashboards, monthly reporting, and quarterly strategy reviews. Every metric we track is tied directly to your business objectives — not vanity numbers.</span>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="booking-glow"></div>
+  <div class="reveal">
+    <span class="eyebrow">ALTERNATIVE PATH</span>
+    <h2 class="section-title" style="max-width:600px;margin:0 auto 20px;">BOOK A DIRECT<br><span class="gold-title">DISCOVERY CALL</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:500px;margin:0 auto 48px;">Prefer to speak directly? Schedule a 30-minute complimentary strategy session with our lead engineer. No obligation, no sales pitch — just precision strategic insight for your brand.</p>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:hello@corex.digital?subject=Discovery Audit Request" class="btn-gold"><span>EMAIL US DIRECTLY</span></a>
+      <a href="#contact-main" class="btn-outline">SUBMIT A BRIEF</a>
+    </div>
+    <p style="margin-top:32px;font-family:'Inter',sans-serif;font-size:.75rem;color:rgba(253,253,253,.25);letter-spacing:.1em;">
+      RESPONSE GUARANTEED WITHIN 12 BUSINESS HOURS
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Corex" class="footer-cx">
+    <span class="footer-brand">COREX.DIGITAL</span>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="services.html">SERVICES</a>
+    <a href="clients.html">CLIENTS</a>
+    <a href="contact.html">CONNECT</a>
+  </nav>
+  <p class="footer-copy">© 2026 COREX | DIGITAL ENGINEERING</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=(e.clientX-4)+'px';
+  cur.style.top=(e.clientY-4)+'px';
+  ring.style.left=(e.clientX-16)+'px';
+  ring.style.top=(e.clientY-16)+'px';
+});
+
+/* ── LOADER ── */
+(function(){
+  if(sessionStorage.getItem('cx-loaded')){
+    document.getElementById('loader').style.display='none';
+    return;
+  }
+  sessionStorage.setItem('cx-loaded','1');
+  window.addEventListener('load',()=>{
+    document.getElementById('lf').style.width='100%';
+    setTimeout(()=>{
+      const l=document.getElementById('loader');
+      l.style.opacity='0';
+      setTimeout(()=>l.style.display='none',900);
+    },1600);
+  });
+})();
+
+/* ── MOBILE NAV ── */
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeDrawer(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ── BANNER THREE.JS — INTERACTIVE GRID MESH ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('banner-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,canvas.clientWidth/canvas.clientHeight,.1,500);
+  camera.position.set(0,2,6);
+  camera.lookAt(0,0,0);
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  // Grid
+  const gridSize=20; const spacing=1.2;
+  const gridVerts=[];
+  for(let x=-gridSize/2;x<=gridSize/2;x+=spacing){
+    gridVerts.push(x,-3,-gridSize/2*spacing, x,-3,gridSize/2*spacing);
+  }
+  for(let z=-gridSize/2;z<=gridSize/2;z+=spacing){
+    gridVerts.push(-gridSize/2*spacing,-3,z, gridSize/2*spacing,-3,z);
+  }
+  const gGeo=new THREE.BufferGeometry();
+  gGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(gridVerts),3));
+  scene.add(new THREE.LineSegments(gGeo,new THREE.LineBasicMaterial({color:0xC9A063,transparent:true,opacity:.1})));
+
+  // Rising nodes
+  const nodeGroup=new THREE.Group();
+  const nodes=[];
+  for(let i=0;i<20;i++){
+    const m=new THREE.Mesh(
+      new THREE.OctahedronGeometry(.05+Math.random()*.08,0),
+      new THREE.MeshBasicMaterial({color:0xC9A063,transparent:true,opacity:.6+Math.random()*.4})
+    );
+    const x=(Math.random()-.5)*16;
+    const z=(Math.random()-.5)*16;
+    m.position.set(x,-3,z);
+    nodeGroup.add(m);
+    nodes.push({m,targetY:-3+Math.random()*3.5,speed:.01+Math.random()*.02,phase:Math.random()*Math.PI*2});
+  }
+  scene.add(nodeGroup);
+
+  // Particles
+  const pPos=new Float32Array(1000*3);
+  for(let i=0;i<1000;i++){
+    pPos[i*3]=(Math.random()-.5)*30;
+    pPos[i*3+1]=(Math.random()-.5)*15;
+    pPos[i*3+2]=(Math.random()-.5)*20;
+  }
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.012,transparent:true,opacity:.28})));
+
+  let mx=0;
+  document.addEventListener('mousemove',e=>{ mx=(e.clientX/innerWidth-.5)*2; });
+
+  const ro=new ResizeObserver(()=>{
+    camera.aspect=canvas.clientWidth/canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  });
+  ro.observe(canvas);
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.008;
+    nodes.forEach((n,i)=>{
+      n.m.position.y=n.targetY*(.5+.5*Math.sin(t+n.phase))+-3*.5;
+      n.m.rotation.y+=n.speed;
+    });
+    camera.position.x+=(mx*.5-camera.position.x)*.04;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── FORM SUBMIT ── */
+document.getElementById('cxform').addEventListener('submit',function(e){
+  e.preventDefault();
+  const btn=this.querySelector('button[type=submit]');
+  btn.disabled=true;
+  btn.querySelector('span').textContent='SENDING...';
+  setTimeout(()=>{
+    this.style.display='none';
+    document.getElementById('form-success').style.display='block';
+  },1500);
+});
+
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── PULSE ANIMATION (live indicator) ── */
+const style=document.createElement('style');
+style.textContent='@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>

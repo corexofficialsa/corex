@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREX | Services</title>
+<meta name="description" content="Corex — Premium Digital Engineering Services: Web Development, SEO Domination, Social Sync.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ── SERVICE BLOCK ── */
+.svc-block {
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  padding:100px 60px;
+  border-bottom:1px solid var(--border-dim);
+}
+.svc-block:nth-child(even) { direction:rtl; }
+.svc-block:nth-child(even) > * { direction:ltr; }
+.svc-block-content { max-width:520px; }
+.svc-block-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:5.5rem; font-weight:900;
+  color:rgba(201,160,99,.05); line-height:1;
+  margin-bottom:-20px; display:block;
+}
+.svc-block-icon { font-size:2.2rem; color:var(--gold); margin-bottom:24px; display:block; }
+.svc-block-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(1.4rem,2.5vw,2rem);
+  font-weight:800; letter-spacing:-.01em;
+  color:var(--ivory); margin-bottom:6px;
+}
+.svc-block-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:600;
+  letter-spacing:.45em; color:var(--gold);
+  margin-bottom:22px; display:block;
+}
+.svc-block-text { margin-bottom:28px; }
+.svc-block-text p { font-family:'Inter',sans-serif; font-size:.93rem; color:var(--muted); line-height:1.85; margin-bottom:12px; }
+
+.feature-list { list-style:none; margin-bottom:36px; }
+.feature-list li {
+  display:flex; align-items:flex-start; gap:13px;
+  font-family:'Inter',sans-serif; font-size:.88rem;
+  color:var(--muted); padding:9px 0;
+  border-bottom:1px solid rgba(201,160,99,.06);
+  line-height:1.6;
+}
+.feature-list li:last-child { border-bottom:none; }
+.feature-list li i { color:var(--gold); font-size:.7rem; margin-top:4px; flex-shrink:0; }
+
+/* Service visual */
+.svc-visual {
+  position:relative; border:1px solid var(--border-dim);
+  overflow:hidden; background:rgba(201,160,99,.02);
+}
+.svc-visual canvas { display:block; width:100%; }
+.svc-visual-label {
+  position:absolute; top:24px; left:24px;
+  font-family:'Montserrat',sans-serif;
+  font-size:.52rem; font-weight:700;
+  letter-spacing:.38em; color:rgba(201,160,99,.45);
+}
+.svc-visual-glow {
+  position:absolute; bottom:-60px; right:-60px;
+  width:250px; height:250px;
+  background:radial-gradient(circle,rgba(201,160,99,.08),transparent 70%);
+  pointer-events:none;
+}
+
+/* ── PROCESS DETAIL ── */
+#process-detail { background:#000; border-top:1px solid var(--border-dim); }
+.pd-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  border:1px solid var(--border-dim);
+}
+.pd-card {
+  padding:48px 36px; border-right:1px solid var(--border-dim);
+  transition:background .4s;
+}
+.pd-card:last-child { border-right:none; }
+.pd-card:hover { background:rgba(201,160,99,.025); }
+.pd-step {
+  font-family:'Montserrat',sans-serif;
+  font-size:.5rem; font-weight:700;
+  letter-spacing:.45em; color:rgba(201,160,99,.4);
+  margin-bottom:16px; display:block;
+}
+.pd-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.72rem; font-weight:700;
+  letter-spacing:.22em; color:var(--ivory);
+  margin-bottom:12px;
+}
+.pd-text { font-family:'Inter',sans-serif; font-size:.88rem; color:var(--muted); line-height:1.8; }
+
+/* ── PRICING HINT ── */
+#pricing {
+  text-align:center; border-top:1px solid var(--border-dim);
+  background:linear-gradient(180deg,#000,#050402);
+}
+.pricing-card {
+  max-width:580px; margin:0 auto;
+  border:1px solid rgba(201,160,99,.18);
+  padding:64px 52px;
+  background:rgba(201,160,99,.03);
+  position:relative; overflow:hidden;
+}
+.pricing-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+.pricing-label {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.5em; color:var(--gold);
+  margin-bottom:20px; display:block;
+}
+.pricing-price {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(2rem,5vw,3.8rem);
+  font-weight:900; letter-spacing:-.02em; color:var(--ivory);
+  margin-bottom:6px;
+}
+.pricing-price span {
+  font-size:.75em;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.pricing-from { font-family:'Inter',sans-serif; font-size:.82rem; color:var(--muted); margin-bottom:28px; }
+.pricing-divider { width:36px; height:1px; background:var(--gold); margin:0 auto 28px; }
+.pricing-features { text-align:left; margin-bottom:40px; }
+.pricing-features li {
+  display:flex; align-items:center; gap:12px;
+  font-family:'Inter',sans-serif; font-size:.88rem; color:var(--muted);
+  padding:8px 0; border-bottom:1px solid rgba(201,160,99,.06);
+}
+.pricing-features li i { color:var(--gold); font-size:.65rem; }
+
+/* ── CTA ── */
+#svc-cta {
+  text-align:center;
+  background:linear-gradient(135deg,rgba(201,160,99,.07),rgba(0,0,0,0));
+  border-top:1px solid var(--border-dim);
+  padding:130px 60px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1000px) {
+  .svc-block { grid-template-columns:1fr; gap:48px; padding:80px 40px; }
+  .svc-block:nth-child(even) { direction:ltr; }
+  .pd-grid { grid-template-columns:1fr; }
+  .pd-card { border-right:none; border-bottom:1px solid var(--border-dim); }
+  .pd-card:last-child { border-bottom:none; }
+}
+@media (max-width:600px) {
+  .svc-block { padding:70px 22px; }
+  #svc-cta { padding:90px 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<div id="loader">
+  <img src="logo.png" alt="Corex" class="loader-logo">
+  <div class="loader-sub">DIGITAL ENGINEERING</div>
+  <div class="loader-track"><div class="loader-fill" id="lf"></div></div>
+</div>
+
+<div class="mobile-drawer" id="drawer">
+  <nav class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()"><span class="d-num">01</span><span class="d-label">HOME</span></a>
+    <a href="about.html" onclick="closeDrawer()"><span class="d-num">02</span><span class="d-label">ABOUT</span></a>
+    <a href="services.html" onclick="closeDrawer()"><span class="d-num">03</span><span class="d-label">SERVICES</span></a>
+    <a href="clients.html" onclick="closeDrawer()"><span class="d-num">04</span><span class="d-label">CLIENTS</span></a>
+    <a href="contact.html" onclick="closeDrawer()"><span class="d-num">05</span><span class="d-label">CONNECT</span></a>
+  </nav>
+  <div class="drawer-bottom">
+    <div class="drawer-social">
+      <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <span class="drawer-brand">COREX.DIGITAL</span>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Corex" class="cx-mark">
+    <span class="nav-wordmark">COREX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="services.html" class="active">SERVICES</a></li>
+    <li><a href="clients.html">CLIENTS</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">CONNECT</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <canvas class="banner-canvas" id="banner-canvas"></canvas>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.75) 100%);z-index:1;"></div>
+  <div class="banner-content">
+    <span class="eyebrow">PRECISION ENGINEERED</span>
+    <h1 class="banner-title">OUR CORE<br><span style="background:linear-gradient(135deg,#C9A063,#E8C98A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">SERVICES</span></h1>
+    <div class="banner-divider"></div>
+    <p class="banner-sub">Three precision-engineered pillars. One unified digital supremacy.</p>
+  </div>
+</div>
+
+<!-- SERVICE 01: WEB DEVELOPMENT -->
+<div class="svc-block">
+  <div class="svc-block-content reveal">
+    <span class="svc-block-num">01</span>
+    <i class="fas fa-code svc-block-icon"></i>
+    <h2 class="svc-block-name">WEB DEVELOPMENT</h2>
+    <span class="svc-block-tag">HIGH-PERFORMANCE PLATFORMS</span>
+    <div class="svc-block-text">
+      <p>We don't build websites — we engineer digital headquarters. Every project is architected from the ground up with performance, scalability, and brand authority as the primary objectives.</p>
+      <p>From concept architecture to production deployment, our engineering standards mirror those of the world's leading tech companies, applied specifically to your brand's unique needs.</p>
+    </div>
+    <ul class="feature-list">
+      <li><i class="fas fa-check"></i> Custom full-stack architecture (React, Next.js, Node)</li>
+      <li><i class="fas fa-check"></i> Sub-1 second load times via CDN optimization</li>
+      <li><i class="fas fa-check"></i> Mobile-first responsive engineering</li>
+      <li><i class="fas fa-check"></i> Security hardened with SSL, OWASP compliance</li>
+      <li><i class="fas fa-check"></i> CMS integration and admin panel delivery</li>
+      <li><i class="fas fa-check"></i> E-commerce and payment gateway engineering</li>
+      <li><i class="fas fa-check"></i> 5–7 day initial delivery sprint</li>
+    </ul>
+    <a href="contact.html" class="btn-gold"><span>ENGINEER YOUR PLATFORM</span></a>
+  </div>
+  <div class="svc-visual reveal reveal-d2">
+    <canvas id="svc-canvas-1" height="380"></canvas>
+    <span class="svc-visual-label">WEB.ENGINEERING</span>
+    <div class="svc-visual-glow"></div>
+  </div>
+</div>
+
+<!-- SERVICE 02: SEO -->
+<div class="svc-block">
+  <div class="svc-block-content reveal">
+    <span class="svc-block-num">02</span>
+    <i class="fas fa-chart-line svc-block-icon"></i>
+    <h2 class="svc-block-name">SEO & SEARCH DOMINATION</h2>
+    <span class="svc-block-tag">GLOBAL VISIBILITY ENGINEERING</span>
+    <div class="svc-block-text">
+      <p>Search engine optimization is not a marketing tactic — it is a precision engineering discipline. We architect your digital authority systematically, placing your brand where it belongs: at the top.</p>
+      <p>Our data-driven methodology combines technical SEO infrastructure, content architecture, and authority-building to create sustainable, compounding search dominance for your brand.</p>
+    </div>
+    <ul class="feature-list">
+      <li><i class="fas fa-check"></i> Technical SEO audit and remediation</li>
+      <li><i class="fas fa-check"></i> Keyword architecture and competitive mapping</li>
+      <li><i class="fas fa-check"></i> On-page optimization and content engineering</li>
+      <li><i class="fas fa-check"></i> Authority link acquisition strategy</li>
+      <li><i class="fas fa-check"></i> Local SEO for multi-location brands</li>
+      <li><i class="fas fa-check"></i> Monthly performance analytics reporting</li>
+      <li><i class="fas fa-check"></i> Google Business Profile optimization</li>
+    </ul>
+    <a href="contact.html" class="btn-gold"><span>DOMINATE YOUR SEARCH</span></a>
+  </div>
+  <div class="svc-visual reveal reveal-d2">
+    <canvas id="svc-canvas-2" height="380"></canvas>
+    <span class="svc-visual-label">SEO.DOMINATION</span>
+    <div class="svc-visual-glow"></div>
+  </div>
+</div>
+
+<!-- SERVICE 03: SOCIAL SYNC -->
+<div class="svc-block">
+  <div class="svc-block-content reveal">
+    <span class="svc-block-num">03</span>
+    <i class="fas fa-link svc-block-icon"></i>
+    <h2 class="svc-block-name">SOCIAL SYNC</h2>
+    <span class="svc-block-tag">UNIFIED DIGITAL IDENTITY</span>
+    <div class="svc-block-text">
+      <p>Your brand exists across dozens of digital touchpoints. Most brands manage them in silos — we engineer them as a unified system. Our Social Sync methodology creates one cohesive brand voice with infinite reach.</p>
+      <p>We engineer your social infrastructure to work as an interconnected machine: each platform amplifying the others, each piece of content strategically synchronized for maximum impact and brand consistency.</p>
+    </div>
+    <ul class="feature-list">
+      <li><i class="fas fa-check"></i> Brand identity audit across all platforms</li>
+      <li><i class="fas fa-check"></i> Unified brand voice and tone engineering</li>
+      <li><i class="fas fa-check"></i> Content calendar architecture and production</li>
+      <li><i class="fas fa-check"></i> Instagram, LinkedIn, Twitter/X, TikTok, YouTube</li>
+      <li><i class="fas fa-check"></i> Community management protocols</li>
+      <li><i class="fas fa-check"></i> Paid social strategy and ad optimization</li>
+      <li><i class="fas fa-check"></i> Monthly growth and engagement reporting</li>
+    </ul>
+    <a href="contact.html" class="btn-gold"><span>SYNC YOUR PRESENCE</span></a>
+  </div>
+  <div class="svc-visual reveal reveal-d2">
+    <canvas id="svc-canvas-3" height="380"></canvas>
+    <span class="svc-visual-label">SOCIAL.SYNC</span>
+    <div class="svc-visual-glow"></div>
+  </div>
+</div>
+
+<!-- PROCESS DETAIL -->
+<section id="process-detail" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">DELIVERY STANDARD</span>
+    <h2 class="section-title">HOW WE<br><span class="gold-title">DELIVER</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="pd-grid">
+    <div class="pd-card reveal">
+      <span class="pd-step">PHASE 01</span>
+      <h3 class="pd-title">AUDIT & STRATEGY</h3>
+      <p class="pd-text">Complete analysis of your current digital assets, competitive landscape, and opportunity mapping. Strategy document delivered within 48 hours.</p>
+    </div>
+    <div class="pd-card reveal reveal-d1">
+      <span class="pd-step">PHASE 02</span>
+      <h3 class="pd-title">ARCHITECTURE</h3>
+      <p class="pd-text">Engineering blueprint creation. Every component planned, every integration mapped, every milestone documented before a single line of code is written.</p>
+    </div>
+    <div class="pd-card reveal reveal-d2">
+      <span class="pd-step">PHASE 03</span>
+      <h3 class="pd-title">PRECISION BUILD</h3>
+      <p class="pd-text">5–7 day delivery sprints with daily progress updates. You see progress in real time — no black boxes, no surprises at delivery.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING HINT -->
+<section id="pricing" class="section-pad">
+  <div class="reveal">
+    <span class="eyebrow">INVESTMENT</span>
+    <h2 class="section-title" style="margin-bottom:50px;">ELITE ENGINEERING<br><span class="gold-title">STARTS HERE</span></h2>
+  </div>
+  <div class="pricing-card reveal">
+    <span class="pricing-label">STARTING FROM</span>
+    <div class="pricing-price"><span>$</span>1,500</div>
+    <p class="pricing-from">per project · custom scoping available</p>
+    <div class="pricing-divider"></div>
+    <ul class="pricing-features">
+      <li><i class="fas fa-check"></i> 25% advance retainer to initiate</li>
+      <li><i class="fas fa-check"></i> 5–7 day delivery sprint</li>
+      <li><i class="fas fa-check"></i> Dedicated engineer assigned</li>
+      <li><i class="fas fa-check"></i> Daily progress reports</li>
+      <li><i class="fas fa-check"></i> QA review before delivery</li>
+      <li><i class="fas fa-check"></i> Full balance on satisfaction</li>
+      <li><i class="fas fa-check"></i> 30-day post-launch support</li>
+    </ul>
+    <a href="contact.html" class="btn-gold"><span>REQUEST CUSTOM QUOTE</span></a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="svc-cta">
+  <div class="reveal">
+    <span class="eyebrow">READY TO ENGINEER?</span>
+    <h2 class="section-title" style="max-width:600px;margin:0 auto 20px;">SELECT YOUR<br><span class="gold-title">ENGINEERING PATH</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:460px;margin:0 auto 48px;">Every great digital legacy starts with a strategy session. Book your free audit and let's architect your future.</p>
+    <a href="contact.html" class="btn-gold"><span>BOOK FREE AUDIT</span></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Corex" class="footer-cx">
+    <span class="footer-brand">COREX.DIGITAL</span>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="services.html">SERVICES</a>
+    <a href="clients.html">CLIENTS</a>
+    <a href="contact.html">CONNECT</a>
+  </nav>
+  <p class="footer-copy">© 2026 COREX | DIGITAL ENGINEERING</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=(e.clientX-4)+'px';
+  cur.style.top=(e.clientY-4)+'px';
+  ring.style.left=(e.clientX-16)+'px';
+  ring.style.top=(e.clientY-16)+'px';
+});
+
+/* ── LOADER ── */
+(function(){
+  if(sessionStorage.getItem('cx-loaded')){
+    document.getElementById('loader').style.display='none';
+    return;
+  }
+  sessionStorage.setItem('cx-loaded','1');
+  window.addEventListener('load',()=>{
+    document.getElementById('lf').style.width='100%';
+    setTimeout(()=>{
+      const l=document.getElementById('loader');
+      l.style.opacity='0';
+      setTimeout(()=>l.style.display='none',900);
+    },1600);
+  });
+})();
+
+/* ── MOBILE NAV ── */
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeDrawer(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ── THREE.JS BANNER ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('banner-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(70,canvas.clientWidth/canvas.clientHeight,.1,500);
+  camera.position.z=5;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  // Multiple floating geometries
+  const shapes=[];
+  const geos=[
+    new THREE.IcosahedronGeometry(.5,1),
+    new THREE.OctahedronGeometry(.4,0),
+    new THREE.TetrahedronGeometry(.5,0),
+    new THREE.IcosahedronGeometry(.3,0),
+    new THREE.OctahedronGeometry(.25,0),
+  ];
+  geos.forEach((g,i)=>{
+    const m=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:.18}));
+    m.position.set((i-2)*2.2,(Math.random()-.5)*1.2,(Math.random()-.5)*2);
+    scene.add(m);
+    shapes.push({m,ry:Math.random()*.01+.003,rx:Math.random()*.006});
+  });
+  const pPos=new Float32Array(1200*3);
+  for(let i=0;i<1200*3;i++) pPos[i]=(Math.random()-.5)*20;
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.015,transparent:true,opacity:.28})));
+
+  const ro=new ResizeObserver(()=>{
+    const w=canvas.clientWidth,h=canvas.clientHeight;
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  });
+  ro.observe(canvas);
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.004;
+    shapes.forEach((s,i)=>{
+      s.m.rotation.y+=s.ry;
+      s.m.rotation.x+=s.rx;
+      s.m.position.y=((Math.sin(t+i*1.2)*.4));
+    });
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── THREE.JS SERVICE VISUALS ── */
+function makeServiceScene(canvasId,geoType){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  const scene=new THREE.Scene();
+  const w=canvas.clientWidth||canvas.offsetWidth||400;
+  const h=parseInt(canvas.getAttribute('height'))||380;
+  const camera=new THREE.PerspectiveCamera(65,w/h,.1,200);
+  camera.position.z=3.5;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(w,h);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  let main;
+  if(geoType===1){
+    main=new THREE.Mesh(new THREE.IcosahedronGeometry(1.1,1),new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:.2}));
+  } else if(geoType===2){
+    main=new THREE.Mesh(new THREE.TorusKnotGeometry(.8,.25,80,12),new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:.18}));
+  } else {
+    // Network of connected nodes
+    main=new THREE.Group();
+    const nCount=12;
+    const nMeshes=[];
+    for(let i=0;i<nCount;i++){
+      const m=new THREE.Mesh(new THREE.SphereGeometry(.06,8,8),new THREE.MeshBasicMaterial({color:0xC9A063,transparent:true,opacity:.7}));
+      const phi=Math.acos(-1+2*i/nCount);
+      const theta=Math.sqrt(nCount*Math.PI)*phi;
+      m.position.set(Math.cos(theta)*Math.sin(phi)*1.2,Math.sin(theta)*Math.sin(phi)*1.2,Math.cos(phi)*1.2);
+      main.add(m); nMeshes.push(m);
+    }
+    // Lines
+    const lineVerts=[];
+    for(let i=0;i<nMeshes.length;i++){
+      for(let j=i+1;j<nMeshes.length;j++){
+        if(nMeshes[i].position.distanceTo(nMeshes[j].position)<1.2){
+          lineVerts.push(nMeshes[i].position.x,nMeshes[i].position.y,nMeshes[i].position.z);
+          lineVerts.push(nMeshes[j].position.x,nMeshes[j].position.y,nMeshes[j].position.z);
+        }
+      }
+    }
+    const lg=new THREE.BufferGeometry();
+    lg.setAttribute('position',new THREE.BufferAttribute(new Float32Array(lineVerts),3));
+    main.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xC9A063,transparent:true,opacity:.15})));
+    scene.add(main);
+  }
+  if(geoType!==3) scene.add(main);
+
+  // Particles
+  const pPos=new Float32Array(600*3);
+  for(let i=0;i<600*3;i++) pPos[i]=(Math.random()-.5)*10;
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.018,transparent:true,opacity:.3})));
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.005;
+    main.rotation.y=t*.25;
+    main.rotation.x=t*.15;
+    renderer.render(scene,camera);
+  })();
+}
+
+window.addEventListener('load',()=>{
+  makeServiceScene('svc-canvas-1',1);
+  makeServiceScene('svc-canvas-2',2);
+  makeServiceScene('svc-canvas-3',3);
+});
+
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

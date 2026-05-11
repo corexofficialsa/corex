@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREX | Clients</title>
+<meta name="description" content="Elite clients who trust Corex Digital Engineering.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ── CLIENT CARDS ── */
+#clients-section { background:#000; }
+.clients-grid {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:24px;
+}
+.client-card {
+  border:1px solid var(--border-dim);
+  overflow:hidden;
+  transition:border-color .45s, transform .45s;
+  position:relative;
+}
+.client-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  transform:scaleX(0); transition:transform .5s ease;
+}
+.client-card:hover::before { transform:scaleX(1); }
+.client-card:hover { border-color:rgba(201,160,99,.28); transform:translateY(-5px); }
+
+.client-header {
+  display:flex; align-items:center; gap:24px; padding:36px 40px;
+  border-bottom:1px solid var(--border-dim);
+  background:rgba(201,160,99,.02);
+}
+.client-avatar {
+  width:80px; height:80px; border-radius:50%;
+  object-fit:cover; border:2px solid rgba(201,160,99,.25);
+  flex-shrink:0;
+}
+.client-meta { flex:1; min-width:0; }
+.client-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:.85rem; font-weight:700;
+  letter-spacing:.15em; color:var(--ivory);
+  margin-bottom:5px;
+}
+.client-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:500;
+  letter-spacing:.28em; color:var(--gold);
+  margin-bottom:8px;
+}
+.client-company {
+  font-family:'Inter',sans-serif;
+  font-size:.8rem; color:var(--muted);
+}
+.client-stars {
+  display:flex; gap:4px; color:var(--gold); font-size:.75rem;
+  flex-shrink:0;
+}
+
+.client-body { padding:32px 40px; }
+.client-tag-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.client-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:.5rem; font-weight:700;
+  letter-spacing:.22em; color:var(--gold);
+  border:1px solid rgba(201,160,99,.22);
+  padding:4px 12px;
+}
+.client-quote {
+  font-family:'Inter',sans-serif;
+  font-size:.93rem; font-style:italic;
+  color:var(--muted); line-height:1.85;
+  margin-bottom:28px;
+}
+.client-results { border-top:1px solid var(--border-dim); padding-top:24px; }
+.client-results-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:700;
+  letter-spacing:.38em; color:var(--gold);
+  margin-bottom:16px; display:block;
+}
+.results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.result-item { text-align:center; }
+.result-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:1.4rem; font-weight:800;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  display:block;
+}
+.result-lbl {
+  font-family:'Inter',sans-serif;
+  font-size:.68rem; color:var(--muted); margin-top:2px;
+}
+
+/* ── CLIENT STATS ── */
+#client-stats {
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+  display:grid; grid-template-columns:repeat(4,1fr);
+  background:#000;
+}
+.cs-cell {
+  text-align:center; padding:50px 24px;
+  border-right:1px solid var(--border-dim);
+}
+.cs-cell:last-child { border-right:none; }
+.cs-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(2rem,4vw,3.2rem); font-weight:800;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  display:block; margin-bottom:8px;
+}
+.cs-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:500;
+  letter-spacing:.35em; color:var(--muted);
+}
+
+/* ── FULL TESTIMONIALS ── */
+#testimonials { border-top:1px solid var(--border-dim); }
+.test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.test-card {
+  padding:40px 36px; border:1px solid var(--border-dim);
+  background:rgba(201,160,99,.02);
+  transition:border-color .4s, background .4s;
+  position:relative;
+}
+.test-card:hover { border-color:rgba(201,160,99,.25); background:rgba(201,160,99,.04); }
+.test-quote-mark {
+  font-family:'Montserrat',sans-serif;
+  font-size:5rem; font-weight:900; line-height:.8;
+  color:rgba(201,160,99,.1); display:block; margin-bottom:8px;
+}
+.test-text {
+  font-family:'Inter',sans-serif;
+  font-size:.9rem; color:var(--muted);
+  line-height:1.85; margin-bottom:28px; font-style:italic;
+}
+.test-author { display:flex; align-items:center; gap:14px; }
+.test-avatar {
+  width:42px; height:42px; border-radius:50%;
+  object-fit:cover; border:1px solid rgba(201,160,99,.25);
+}
+.test-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; color:var(--ivory);
+}
+.test-role { font-family:'Inter',sans-serif; font-size:.7rem; color:var(--gold); margin-top:2px; }
+.test-stars { display:flex; gap:4px; color:var(--gold); font-size:.7rem; margin-top:6px; }
+
+/* ── BRAND LOGOS MARQUEE ── */
+#brand-logos {
+  border-top:1px solid var(--border-dim);
+  border-bottom:1px solid var(--border-dim);
+  overflow:hidden; padding:40px 0;
+  background:rgba(201,160,99,.02);
+  position:relative;
+}
+#brand-logos::before,#brand-logos::after {
+  content:'';
+  position:absolute; top:0; bottom:0; width:120px; z-index:2;
+  pointer-events:none;
+}
+#brand-logos::before { left:0; background:linear-gradient(to right,#000,transparent); }
+#brand-logos::after  { right:0; background:linear-gradient(to left,#000,transparent); }
+.marquee-track {
+  display:flex; gap:80px; align-items:center;
+  animation:marqueeScroll 30s linear infinite;
+  width:max-content;
+}
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.brand-item {
+  font-family:'Montserrat',sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.4em; color:rgba(253,253,253,.2);
+  white-space:nowrap; flex-shrink:0;
+  transition:color .3s;
+}
+.brand-item:hover { color:rgba(201,160,99,.6); }
+
+/* ── CTA ── */
+#clients-cta {
+  text-align:center;
+  background:linear-gradient(135deg,rgba(201,160,99,.07),rgba(0,0,0,0));
+  border-top:1px solid var(--border-dim);
+  padding:130px 60px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1100px) {
+  #client-stats { grid-template-columns:repeat(2,1fr); }
+  .cs-cell:nth-child(2) { border-right:none; }
+  .cs-cell:nth-child(3) { border-top:1px solid var(--border-dim); }
+}
+@media (max-width:900px) {
+  .clients-grid { grid-template-columns:1fr; }
+  .test-grid { grid-template-columns:1fr; }
+}
+@media (max-width:600px) {
+  .client-header { flex-wrap:wrap; }
+  .results-grid { grid-template-columns:repeat(2,1fr); }
+  #clients-cta { padding:90px 22px; }
+  .client-card { padding:32px 20px; }
+  .marquee-item { font-size:.55rem; padding:0 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<div id="loader">
+  <img src="logo.png" alt="Corex" class="loader-logo">
+  <div class="loader-sub">DIGITAL ENGINEERING</div>
+  <div class="loader-track"><div class="loader-fill" id="lf"></div></div>
+</div>
+
+<div class="mobile-drawer" id="drawer">
+  <nav class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()"><span class="d-num">01</span><span class="d-label">HOME</span></a>
+    <a href="about.html" onclick="closeDrawer()"><span class="d-num">02</span><span class="d-label">ABOUT</span></a>
+    <a href="services.html" onclick="closeDrawer()"><span class="d-num">03</span><span class="d-label">SERVICES</span></a>
+    <a href="clients.html" onclick="closeDrawer()"><span class="d-num">04</span><span class="d-label">CLIENTS</span></a>
+    <a href="contact.html" onclick="closeDrawer()"><span class="d-num">05</span><span class="d-label">CONNECT</span></a>
+  </nav>
+  <div class="drawer-bottom">
+    <div class="drawer-social">
+      <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <span class="drawer-brand">COREX.DIGITAL</span>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Corex" class="cx-mark">
+    <span class="nav-wordmark">COREX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="services.html">SERVICES</a></li>
+    <li><a href="clients.html" class="active">CLIENTS</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">CONNECT</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <canvas class="banner-canvas" id="banner-canvas"></canvas>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.78) 100%);z-index:1;"></div>
+  <div class="banner-content">
+    <span class="eyebrow">THE ELITE ALLIANCE</span>
+    <h1 class="banner-title">OUR SATISFIED<br><span style="background:linear-gradient(135deg,#C9A063,#E8C98A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CLIENTELE</span></h1>
+    <div class="banner-divider"></div>
+    <p class="banner-sub">Brands that trusted our precision. Results that speak louder than promises.</p>
+  </div>
+</div>
+
+<!-- CLIENT STATS -->
+<div id="client-stats">
+  <div class="cs-cell reveal">
+    <span class="cs-num" data-target="50">0</span>
+    <span class="cs-lbl">ELITE CLIENTS</span>
+  </div>
+  <div class="cs-cell reveal reveal-d1">
+    <span class="cs-num" data-target="98" data-suffix="%">0</span>
+    <span class="cs-lbl">RETENTION RATE</span>
+  </div>
+  <div class="cs-cell reveal reveal-d2">
+    <span class="cs-num" data-target="340" data-suffix="%">0</span>
+    <span class="cs-lbl">AVG TRAFFIC GROWTH</span>
+  </div>
+  <div class="cs-cell reveal reveal-d3">
+    <span class="cs-num" data-target="5" data-suffix="★">0</span>
+    <span class="cs-lbl">AVERAGE RATING</span>
+  </div>
+</div>
+
+<!-- CLIENT CARDS -->
+<section id="clients-section" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">VERIFIED ALLIANCES</span>
+    <h2 class="section-title">SATISFIED<br><span class="gold-title">PARTNERS</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:520px;margin:0 auto;">Real results from real brands. Every number below is verified. Every review is genuine.</p>
+  </div>
+
+  <div class="clients-grid">
+
+    <!-- CLIENT 1 -->
+    <div class="client-card reveal">
+      <div class="client-header">
+        <img src="ummerfarook.jpg" alt="Alexander Stone" class="client-avatar">
+        <div class="client-meta">
+          <h3 class="client-name">Ummer Farook</h3>
+          <p class="client-title">CHIEF EXECUTIVE OFFICER</p>
+          <p class="client-company">LEOC Advertising Company ,Riyadh,KSA</p>
+        </div>
+        <div class="client-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+      </div>
+      <div class="client-body">
+        <div class="client-tag-row">
+          <span class="client-tag">WEB DEVELOPMENT</span>
+          <span class="client-tag">SEO</span>
+        </div>
+        <p class="client-quote">"Corex didn't just build our website — they engineered our entire digital presence. The precision and attention to detail is unlike anything I've encountered in 20 years of business. From the first consultation to final delivery, every step was calculated, professional, and flawlessly executed. Our traffic increased 340% in three months and our lead quality has never been higher."</p>
+        <div class="client-results">
+          <span class="client-results-title">VERIFIED RESULTS</span>
+          <div class="results-grid">
+            <div class="result-item">
+              <span class="result-num">340%</span>
+              <p class="result-lbl">Traffic Growth</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">2.8×</span>
+              <p class="result-lbl">Conversion Rate</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">6 Days</span>
+              <p class="result-lbl">Delivery Time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT 2 -->
+    <div class="client-card reveal reveal-d1">
+      <div class="client-header">
+        <img src="althaf.jpg" alt="Sophia Marlowe" class="client-avatar">
+        <div class="client-meta">
+          <h3 class="client-name">Althaf Sanjari</h3>
+          <p class="client-title">FOUNDER</p>
+          <p class="client-company">QZEE Juice Brand — Karnataka, INDIA</p>
+        </div>
+        <div class="client-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+      </div>
+      <div class="client-body">
+        <div class="client-tag-row">
+          <span class="client-tag">WEB DEVELOPMENT</span>
+          <span class="client-tag">SOCIAL SYNC</span>
+        </div>
+        <p class="client-quote">"The 5-day delivery was unreal. What other agencies took months to promise, Corex delivered in under a week — and the quality was beyond luxury standards. Our conversion rate nearly doubled since launch and our social presence now feels like a true couture brand. Zero compromises, total professionalism."</p>
+        <div class="client-results">
+          <span class="client-results-title">VERIFIED RESULTS</span>
+          <div class="results-grid">
+            <div class="result-item">
+              <span class="result-num">1.9×</span>
+              <p class="result-lbl">Conversion Rate</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">280%</span>
+              <p class="result-lbl">Social Growth</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">5 Days</span>
+              <p class="result-lbl">Delivery Time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT 3 -->
+    <div class="client-card reveal">
+      <div class="client-header">
+        <img src="https://i.pravatar.cc/200?img=33" alt="Marcus Chen" class="client-avatar">
+        <div class="client-meta">
+          <h3 class="client-name">MARCUS CHEN</h3>
+          <p class="client-title">DIRECTOR OF GROWTH</p>
+          <p class="client-company">Vertex Technologies — Singapore</p>
+        </div>
+        <div class="client-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+      </div>
+      <div class="client-body">
+        <div class="client-tag-row">
+          <span class="client-tag">SEO DOMINATION</span>
+        </div>
+        <p class="client-quote">"Working with Corex felt like having a Formula 1 pit crew for our brand. Every move was calculated, fast, and flawless. Our Google rankings went from page 4 to position 1 for our primary keywords in 8 weeks. The ROI has been extraordinary — we're now generating 3× our previous organic lead volume monthly."</p>
+        <div class="client-results">
+          <span class="client-results-title">VERIFIED RESULTS</span>
+          <div class="results-grid">
+            <div class="result-item">
+              <span class="result-num">#1</span>
+              <p class="result-lbl">Google Ranking</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">3×</span>
+              <p class="result-lbl">Organic Leads</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">8 Weeks</span>
+              <p class="result-lbl">To Top Position</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT 4 -->
+    <div class="client-card reveal reveal-d1">
+      <div class="client-header">
+        <img src="https://i.pravatar.cc/200?img=47" alt="Natalia Reyes" class="client-avatar">
+        <div class="client-meta">
+          <h3 class="client-name">NATALIA REYES</h3>
+          <p class="client-title">BRAND STRATEGIST & OWNER</p>
+          <p class="client-company">Reyes Prestige Group — Dubai, UAE</p>
+        </div>
+        <div class="client-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+      </div>
+      <div class="client-body">
+        <div class="client-tag-row">
+          <span class="client-tag">SOCIAL SYNC</span>
+          <span class="client-tag">WEB DEVELOPMENT</span>
+          <span class="client-tag">SEO</span>
+        </div>
+        <p class="client-quote">"We engaged Corex for a complete digital transformation — website, SEO, and full social sync across all platforms. The result was a cohesive, luxury brand presence that now attracts exactly the high-net-worth clients we target. The full-service approach and transparent process made this the best investment we've made in our brand."</p>
+        <div class="client-results">
+          <span class="client-results-title">VERIFIED RESULTS</span>
+          <div class="results-grid">
+            <div class="result-item">
+              <span class="result-num">420%</span>
+              <p class="result-lbl">Revenue Growth</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">Top 3</span>
+              <p class="result-lbl">Search Rankings</p>
+            </div>
+            <div class="result-item">
+              <span class="result-num">7 Days</span>
+              <p class="result-lbl">Full Delivery</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BRAND LOGOS MARQUEE -->
+<div id="brand-logos">
+  <div class="marquee-track">
+    <span class="brand-item">STONE CAPITAL</span>
+    <span class="brand-item">MARLOWE LUXURY</span>
+    <span class="brand-item">VERTEX TECHNOLOGIES</span>
+    <span class="brand-item">REYES PRESTIGE GROUP</span>
+    <span class="brand-item">NOVA VENTURES</span>
+    <span class="brand-item">MERIDIAN FINANCE</span>
+    <span class="brand-item">ATLAS BRANDS</span>
+    <span class="brand-item">SUMMIT DIGITAL</span>
+    <span class="brand-item">CREST CONSULTING</span>
+    <span class="brand-item">PREMIER ESTATES</span>
+    <!-- duplicate for seamless loop -->
+    <span class="brand-item">STONE CAPITAL</span>
+    <span class="brand-item">MARLOWE LUXURY</span>
+    <span class="brand-item">VERTEX TECHNOLOGIES</span>
+    <span class="brand-item">REYES PRESTIGE GROUP</span>
+    <span class="brand-item">NOVA VENTURES</span>
+    <span class="brand-item">MERIDIAN FINANCE</span>
+    <span class="brand-item">ATLAS BRANDS</span>
+    <span class="brand-item">SUMMIT DIGITAL</span>
+    <span class="brand-item">CREST CONSULTING</span>
+    <span class="brand-item">PREMIER ESTATES</span>
+  </div>
+</div>
+
+<!-- FULL TESTIMONIALS -->
+<section id="testimonials" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">MORE VOICES</span>
+    <h2 class="section-title">THE COREX<br><span class="gold-title">EFFECT</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">The transparency throughout the process was remarkable. Daily updates, clear milestones, and delivery three hours early. Corex has set a new standard for what professional digital services should look like.</p>
+      <div class="test-author">
+        <img src="abdulla.png" alt="Client" class="test-avatar">
+        <div>
+          <p class="test-name">Abdulla Bin Omar</p>
+          <p class="test-role">Marketing , LEOC Advertising Company</p>
+          <div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal reveal-d1">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">I've worked with agencies across three continents. None matched the engineering quality and professionalism of Corex. Their team actually understands business — not just code. The strategic thinking behind every decision was exceptional.</p>
+      <div class="test-author">
+        <img src="althaf.jpg" alt="Client" class="test-avatar">
+        <div>
+          <p class="test-name">Althaf Sanjari</p>
+          <p class="test-role">Founder, QZEE Juice Brand</p>
+          <div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="test-card reveal reveal-d2">
+      <span class="test-quote-mark">"</span>
+      <p class="test-text">Within 90 days of Corex completing our SEO overhaul, we were generating more qualified inbound leads than our entire previous year. The ROI on this investment has been transformative for our business. Highly recommend — no hesitation.</p>
+      <div class="test-author">
+        <img src="https://i.pravatar.cc/100?img=52" alt="Client" class="test-avatar">
+        <div>
+          <p class="test-name">DANIEL FOSTER</p>
+          <p class="test-role">Director, Foster Law Group</p>
+          <div class="test-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="clients-cta">
+  <div class="reveal">
+    <span class="eyebrow">JOIN THE ELITE</span>
+    <h2 class="section-title" style="max-width:640px;margin:0 auto 20px;">BECOME OUR NEXT<br><span class="gold-title">SUCCESS STORY</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:460px;margin:0 auto 48px;">Limited partnership slots available. Book your discovery audit and let's engineer your digital legacy together.</p>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-gold"><span>BOOK YOUR AUDIT</span></a>
+      <a href="services.html" class="btn-outline">VIEW SERVICES</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Corex" class="footer-cx">
+    <span class="footer-brand">COREX.DIGITAL</span>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="services.html">SERVICES</a>
+    <a href="clients.html">CLIENTS</a>
+    <a href="contact.html">CONNECT</a>
+  </nav>
+  <p class="footer-copy">© 2026 COREX | DIGITAL ENGINEERING</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=(e.clientX-4)+'px';
+  cur.style.top=(e.clientY-4)+'px';
+  ring.style.left=(e.clientX-16)+'px';
+  ring.style.top=(e.clientY-16)+'px';
+});
+
+/* ── LOADER ── */
+(function(){
+  if(sessionStorage.getItem('cx-loaded')){
+    document.getElementById('loader').style.display='none';
+    return;
+  }
+  sessionStorage.setItem('cx-loaded','1');
+  window.addEventListener('load',()=>{
+    document.getElementById('lf').style.width='100%';
+    setTimeout(()=>{
+      const l=document.getElementById('loader');
+      l.style.opacity='0';
+      setTimeout(()=>l.style.display='none',900);
+    },1600);
+  });
+})();
+
+/* ── MOBILE NAV ── */
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeDrawer(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ── BANNER THREE.JS — STARFIELD ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('banner-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(70,canvas.clientWidth/canvas.clientHeight,.1,500);
+  camera.position.z=6;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  // Stars
+  const starCount=2500;
+  const starPos=new Float32Array(starCount*3);
+  const starSizes=new Float32Array(starCount);
+  for(let i=0;i<starCount;i++){
+    starPos[i*3]=(Math.random()-.5)*40;
+    starPos[i*3+1]=(Math.random()-.5)*40;
+    starPos[i*3+2]=(Math.random()-.5)*20;
+    starSizes[i]=Math.random()*.018+.006;
+  }
+  const sGeo=new THREE.BufferGeometry();
+  sGeo.setAttribute('position',new THREE.BufferAttribute(starPos,3));
+  const stars=new THREE.Points(sGeo,new THREE.PointsMaterial({color:0xC9A063,size:.012,transparent:true,opacity:.4}));
+  scene.add(stars);
+
+  // Faint central orb
+  const orb=new THREE.Mesh(new THREE.SphereGeometry(.6,16,16),new THREE.MeshBasicMaterial({color:0xC9A063,transparent:true,opacity:.05}));
+  scene.add(orb);
+
+  const ro=new ResizeObserver(()=>{
+    camera.aspect=canvas.clientWidth/canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  });
+  ro.observe(canvas);
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.003;
+    stars.rotation.y=t*.06;
+    stars.rotation.x=t*.02;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── COUNTER ── */
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target;
+    const target=+el.dataset.target;
+    const suf=el.dataset.suffix||'+';
+    let n=0; const step=target/60;
+    const t=setInterval(()=>{
+      n+=step;
+      if(n>=target){n=target;clearInterval(t);}
+      el.textContent=Math.floor(n)+suf;
+    },25);
+    cio.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>cio.observe(el));
+</script>
+</body>
+</html>

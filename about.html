@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREX | About Us</title>
+<meta name="description" content="Meet the minds behind Corex Digital Engineering.">
+<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ── MISSION ── */
+#mission {
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+}
+.mission-text { max-width:520px; }
+.mission-text p { margin-bottom:20px; }
+.mission-visual {
+  position:relative; height:420px;
+  border:1px solid var(--border-dim);
+  overflow:hidden;
+}
+#mission-canvas { width:100%; height:100%; }
+.mission-badge {
+  position:absolute; bottom:32px; left:32px;
+  background:rgba(0,0,0,.9); border:1px solid rgba(201,160,99,.25);
+  padding:18px 24px;
+}
+.mb-num {
+  font-family:'Montserrat',sans-serif;
+  font-size:2.2rem; font-weight:800;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  display:block;
+}
+.mb-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:.52rem; font-weight:600;
+  letter-spacing:.35em; color:var(--muted);
+}
+
+/* ── STORY TIMELINE ── */
+#story { background:#000; border-top:1px solid var(--border-dim); }
+.timeline { max-width:780px; }
+.t-item {
+  display:grid; grid-template-columns:80px 1fr; gap:32px;
+  padding:40px 0;
+  border-bottom:1px solid var(--border-dim);
+}
+.t-item:last-child { border-bottom:none; }
+.t-year {
+  font-family:'Montserrat',sans-serif;
+  font-size:1.6rem; font-weight:800;
+  background:linear-gradient(135deg,#C9A063,#E8C98A);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  white-space:nowrap; padding-top:4px;
+}
+.t-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.7rem; font-weight:700;
+  letter-spacing:.25em; color:var(--ivory);
+  margin-bottom:10px;
+}
+.t-desc { font-family:'Inter',sans-serif; font-size:.9rem; color:var(--muted); line-height:1.8; }
+
+/* ── VALUES ── */
+#values { border-top:1px solid var(--border-dim); }
+.values-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:0; border:1px solid var(--border-dim);
+}
+.val-card {
+  padding:52px 36px; border-right:1px solid var(--border-dim);
+  transition:background .4s;
+}
+.val-card:last-child { border-right:none; }
+.val-card:hover { background:rgba(201,160,99,.03); }
+.val-icon { font-size:1.5rem; color:var(--gold); margin-bottom:24px; display:block; }
+.val-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:.68rem; font-weight:700;
+  letter-spacing:.28em; color:var(--ivory);
+  margin-bottom:14px;
+}
+.val-text { font-family:'Inter',sans-serif; font-size:.87rem; color:var(--muted); line-height:1.8; }
+
+/* ── TEAM ── */
+#team { background:#000; border-top:1px solid var(--border-dim); }
+.team-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+}
+.team-card {
+  border:1px solid var(--border-dim);
+  overflow:hidden;
+  transition:border-color .4s, transform .4s;
+}
+.team-card:hover { border-color:rgba(201,160,99,.3); transform:translateY(-6px); }
+.team-img {
+  width:100%; aspect-ratio:3/4; object-fit:cover;
+  display:block; filter:grayscale(20%);
+  transition:filter .4s, transform .4s;
+}
+.team-card:hover .team-img { filter:grayscale(0%); transform:scale(1.03); }
+.team-info { padding:28px 24px; }
+.team-name {
+  font-family:'Montserrat',sans-serif;
+  font-size:.75rem; font-weight:700;
+  letter-spacing:.18em; color:var(--ivory);
+  margin-bottom:5px;
+}
+.team-role {
+  font-family:'Montserrat',sans-serif;
+  font-size:.55rem; font-weight:500;
+  letter-spacing:.28em; color:var(--gold);
+  margin-bottom:14px;
+}
+.team-bio { font-family:'Inter',sans-serif; font-size:.82rem; color:var(--muted); line-height:1.7; }
+.team-social { display:flex; gap:14px; margin-top:18px; }
+.team-social a {
+  font-size:.85rem; color:rgba(253,253,253,.3);
+  transition:color .3s;
+}
+.team-social a:hover { color:var(--gold); }
+
+/* ── PHILOSOPHY DEEP ── */
+#phil-deep {
+  background:linear-gradient(180deg,#000 0%,#060402 100%);
+  text-align:center; border-top:1px solid var(--border-dim);
+  position:relative; overflow:hidden;
+}
+.phil-deep-glow {
+  position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+  width:700px; height:500px;
+  background:radial-gradient(ellipse,rgba(201,160,99,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.phil-quote {
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(1.3rem,2.5vw,2rem);
+  font-weight:300; font-style:italic;
+  color:var(--ivory); opacity:.75;
+  max-width:760px; margin:0 auto 32px;
+  line-height:1.7; letter-spacing:.03em;
+}
+.phil-quote strong { font-weight:700; color:var(--gold); font-style:normal; }
+
+/* ── CTA ── */
+#about-cta {
+  text-align:center;
+  background:linear-gradient(135deg,rgba(201,160,99,.06) 0%,rgba(0,0,0,0) 100%);
+  border-top:1px solid var(--border-dim);
+  padding:130px 60px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:1100px) {
+  .values-grid { grid-template-columns:repeat(2,1fr); }
+  .val-card:nth-child(2) { border-right:none; }
+  .val-card:nth-child(1),.val-card:nth-child(2) { border-bottom:1px solid var(--border-dim); }
+  .team-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:900px) {
+  #mission { grid-template-columns:1fr; }
+  .mission-visual { height:300px; }
+}
+@media (max-width:600px) {
+  .values-grid { grid-template-columns:1fr; }
+  .val-card { border-right:none; border-bottom:1px solid var(--border-dim); }
+  .val-card:last-child { border-bottom:none; }
+  .team-grid { grid-template-columns:1fr; }
+  .t-item { grid-template-columns:60px 1fr; gap:20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<div id="loader">
+  <img src="logo.png" alt="Corex" class="loader-logo">
+  <div class="loader-sub">DIGITAL ENGINEERING</div>
+  <div class="loader-track"><div class="loader-fill" id="lf"></div></div>
+</div>
+
+<div class="mobile-drawer" id="drawer">
+  <nav class="drawer-links">
+    <a href="index.html" onclick="closeDrawer()"><span class="d-num">01</span><span class="d-label">HOME</span></a>
+    <a href="about.html" onclick="closeDrawer()"><span class="d-num">02</span><span class="d-label">ABOUT</span></a>
+    <a href="services.html" onclick="closeDrawer()"><span class="d-num">03</span><span class="d-label">SERVICES</span></a>
+    <a href="clients.html" onclick="closeDrawer()"><span class="d-num">04</span><span class="d-label">CLIENTS</span></a>
+    <a href="contact.html" onclick="closeDrawer()"><span class="d-num">05</span><span class="d-label">CONNECT</span></a>
+  </nav>
+  <div class="drawer-bottom">
+    <div class="drawer-social">
+      <a href="https://www.instagram.com/core_x.official/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <span class="drawer-brand">COREX.DIGITAL</span>
+  </div>
+</div>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Corex" class="cx-mark">
+    <span class="nav-wordmark">COREX</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="about.html" class="active">ABOUT</a></li>
+    <li><a href="services.html">SERVICES</a></li>
+    <li><a href="clients.html">CLIENTS</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">CONNECT</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- BANNER -->
+<div class="page-banner">
+  <canvas class="banner-canvas" id="banner-canvas"></canvas>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.75) 100%);z-index:1;"></div>
+  <div class="banner-content">
+    <span class="eyebrow">OUR STORY</span>
+    <h1 class="banner-title">THE MINDS BEHIND<br><span style="background:linear-gradient(135deg,#C9A063,#E8C98A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">THE MACHINE</span></h1>
+    <div class="banner-divider"></div>
+    <p class="banner-sub">A collective of elite digital engineers forging the future of premium brand infrastructure.</p>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section id="mission" class="section-pad">
+  <div class="mission-text reveal">
+    <span class="eyebrow">WHO WE ARE</span>
+    <h2 class="section-title">BUILT ON<br><span class="gold-title">PRECISION</span></h2>
+    <div class="divider"></div>
+    <p class="body-text">Corex was founded on a singular premise: elite brands deserve digital infrastructure that matches their caliber. We are not a generic agency — we are a precision engineering firm for the digital age.</p>
+    <p class="body-text">Every client partnership is a strategic alliance. We embed ourselves in your vision, engineer your digital foundation with surgical precision, and architect systems built to dominate.</p>
+    <a href="contact.html" class="btn-ghost-gold" style="margin-top:36px;">START YOUR ALLIANCE</a>
+  </div>
+  <div class="mission-visual reveal reveal-d2">
+    <canvas id="mission-canvas"></canvas>
+    <div class="mission-badge">
+      <span class="mb-num">2021</span>
+      <span class="mb-lbl">FOUNDED</span>
+    </div>
+  </div>
+</section>
+
+<!-- STORY TIMELINE -->
+<section id="story" class="section-pad">
+  <div class="reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">OUR JOURNEY</span>
+    <h2 class="section-title">THE COREX<br><span class="gold-title">CHRONICLE</span></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="timeline">
+    <div class="t-item reveal">
+      <span class="t-year">2021</span>
+      <div>
+        <h3 class="t-title">THE FOUNDATION</h3>
+        <p class="t-desc">Corex was founded with a singular vision — to build premium digital infrastructure that rivals the engineering standards of Fortune 500 tech firms, made accessible to elite brands worldwide.</p>
+      </div>
+    </div>
+    <div class="t-item reveal reveal-d1">
+      <span class="t-year">2022</span>
+      <div>
+        <h3 class="t-title">FIRST 20 ALLIANCES</h3>
+        <p class="t-desc">Secured 20 elite client partnerships across luxury, finance, and e-commerce sectors. Delivered 100% on-time, achieving a 98% client retention rate in our first full year of operation.</p>
+      </div>
+    </div>
+    <div class="t-item reveal reveal-d2">
+      <span class="t-year">2023</span>
+      <div>
+        <h3 class="t-title">SEO DOMINATION LAUNCH</h3>
+        <p class="t-desc">Expanded into SEO and Search Engineering, rapidly placing 30+ brands in the top 3 search positions for competitive keywords across global and local markets.</p>
+      </div>
+    </div>
+    <div class="t-item reveal reveal-d1">
+      <span class="t-year">2024</span>
+      <div>
+        <h3 class="t-title">SOCIAL SYNC METHODOLOGY</h3>
+        <p class="t-desc">Developed the proprietary Social Sync methodology — creating unified brand identities across all digital touchpoints, delivering measurable growth in engagement and brand authority.</p>
+      </div>
+    </div>
+    <div class="t-item reveal reveal-d2">
+      <span class="t-year">2025</span>
+      <div>
+        <h3 class="t-title">GLOBAL EXPANSION</h3>
+        <p class="t-desc">Expanded alliances to 50+ global elite brands across 12 countries. Recognized as a top-tier digital engineering firm in the premium sector with a portfolio exceeding $2M in delivered value.</p>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <span class="t-year">2026</span>
+      <div>
+        <h3 class="t-title">THE NEXT CHAPTER</h3>
+        <p class="t-desc">Entering a new era of AI-augmented engineering, enterprise-grade infrastructure solutions, and exclusive retainer programs for the world's most discerning brands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">WHAT DRIVES US</span>
+    <h2 class="section-title">OUR CORE<br><span class="gold-title">PILLARS</span></h2>
+    <div class="divider divider-center"></div>
+  </div>
+  <div class="values-grid">
+    <div class="val-card reveal">
+      <i class="fas fa-crosshairs val-icon"></i>
+      <h3 class="val-title">PRECISION</h3>
+      <p class="val-text">Every element engineered to exact specification. No approximations, no shortcuts. We measure twice, build once, and deliver to elite standards every time.</p>
+    </div>
+    <div class="val-card reveal reveal-d1">
+      <i class="fas fa-handshake-angle val-icon"></i>
+      <h3 class="val-title">ALLIANCE</h3>
+      <p class="val-text">We don't take clients — we forge alliances. Your success is our success. We embed in your vision and treat every project as if it were our own brand on the line.</p>
+    </div>
+    <div class="val-card reveal reveal-d2">
+      <i class="fas fa-bolt val-icon"></i>
+      <h3 class="val-title">VELOCITY</h3>
+      <p class="val-text">Speed without compromise. Our 5–7 day delivery framework means you reach the market before competitors, without any reduction in quality or engineering depth.</p>
+    </div>
+    <div class="val-card reveal reveal-d3">
+      <i class="fas fa-eye val-icon"></i>
+      <h3 class="val-title">TRANSPARENCY</h3>
+      <p class="val-text">Daily progress reports, clear milestones, and honest communication. You always know exactly where your project stands and what's coming next.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="section-pad">
+  <div class="section-center reveal" style="margin-bottom:70px;">
+    <span class="eyebrow">THE ALLIANCE</span>
+    <h2 class="section-title">OUR ELITE<br><span class="gold-title">ENGINEERS</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:500px;margin:0 auto;">The minds behind the machines. Seasoned engineers, strategists, and architects united by a single obsession: engineering digital excellence.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <img src="Muhammed.jpg" alt="Founder" class="team-img">
+      <div class="team-info">
+        <h3 class="team-name">Muhammed Bin Omar </h3>
+        <p class="team-role">FOUNDER & CHIEF ENGINEER</p>
+        <p class="team-bio">Architect of the Corex framework.</p>
+        <div class="team-social">
+          <a href="https://www.instagram.com/m7md_bin.3mr/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/966556175626" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.linkedin.com/in/muhammed-kunnatheri-122157340" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal reveal-d1">
+      <img src="shaheen.jpg" alt="Co-Founder" class="team-img">
+      <div class="team-info">
+        <h3 class="team-name">Shaheen</h3>
+        <p class="team-role">SEO DIRECTOR</p>
+        <p class="team-bio">Orchestrating organic growth through cross-functional leadership.</p>
+        <div class="team-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal reveal-d2">
+      <img src="jasim.jpg" alt="Lead Developer" class="team-img">
+      <div class="team-info">
+        <h3 class="team-name">jasim</h3>
+        <p class="team-role">LEAD WEB ENGINEER</p>
+        <p class="team-bio">Full-stack architect specializing in high-performance platforms.</p>
+        <div class="team-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal reveal-d3">
+      <img src="Ummer.png" alt="Creative Director" class="team-img">
+      <div class="team-info">
+        <h3 class="team-name">Ummer Fathah</h3>
+        <p class="team-role">HEAD OF SOCIAL ENGINEERING</p>
+        <p class="team-bio">Digital identity strategist and Social Sync methodology creator.</p>
+        <div class="team-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY DEEP -->
+<section id="phil-deep" class="section-pad">
+  <div class="phil-deep-glow"></div>
+  <div class="reveal">
+    <span class="eyebrow">THE COREX ETHOS</span>
+    <p class="phil-quote">"We don't provide services; we forge <strong>long-term strategic alliances</strong>. Every pixel is calculated, every line of code is optimized, and every decision is engineered to elevate your brand into the <strong>digital elite</strong>."</p>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:500px;margin:0 auto;">This is not a slogan. It is the operating principle behind every project, every partnership, every deliverable we produce.</p>
+  </div>
+</section>
+
+<!-- ABOUT CTA -->
+<section id="about-cta">
+  <div class="reveal">
+    <span class="eyebrow">JOIN THE ALLIANCE</span>
+    <h2 class="section-title" style="max-width:600px;margin:0 auto 20px;">READY TO BUILD SOMETHING <span class="gold-title">LEGENDARY?</span></h2>
+    <div class="divider divider-center"></div>
+    <p class="body-text" style="max-width:460px;margin:0 auto 48px;">Your digital legacy starts with a single conversation. Let's architect something extraordinary together.</p>
+    <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn-gold"><span>BOOK YOUR AUDIT</span></a>
+      <a href="services.html" class="btn-outline">VIEW SERVICES</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <img src="logo.png" alt="Corex" class="footer-cx">
+    <span class="footer-brand">COREX.DIGITAL</span>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="services.html">SERVICES</a>
+    <a href="clients.html">CLIENTS</a>
+    <a href="contact.html">CONNECT</a>
+  </nav>
+  <p class="footer-copy">© 2026 COREX | DIGITAL ENGINEERING</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur');
+const ring=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=(e.clientX-4)+'px';
+  cur.style.top=(e.clientY-4)+'px';
+  ring.style.left=(e.clientX-16)+'px';
+  ring.style.top=(e.clientY-16)+'px';
+});
+
+/* ── LOADER ── */
+(function(){
+  if(sessionStorage.getItem('cx-loaded')){
+    document.getElementById('loader').style.display='none';
+    return;
+  }
+  sessionStorage.setItem('cx-loaded','1');
+  window.addEventListener('load',()=>{
+    document.getElementById('lf').style.width='100%';
+    setTimeout(()=>{
+      const l=document.getElementById('loader');
+      l.style.opacity='0';
+      setTimeout(()=>l.style.display='none',900);
+    },1600);
+  });
+})();
+
+/* ── MOBILE NAV ── */
+const ham=document.getElementById('ham');
+const drawer=document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const isOpen=ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+});
+function closeDrawer(){
+  ham.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ── BANNER THREE.JS ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('banner-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(70,canvas.clientWidth/canvas.clientHeight,.1,500);
+  camera.position.z=4;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  // Torus knot
+  const tk=new THREE.Mesh(
+    new THREE.TorusKnotGeometry(1.2,.3,120,16),
+    new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:.14})
+  );
+  scene.add(tk);
+
+  // Particles
+  const pPos=new Float32Array(1200*3);
+  for(let i=0;i<1200*3;i++) pPos[i]=(Math.random()-.5)*18;
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.016,transparent:true,opacity:.3})));
+
+  const ro=new ResizeObserver(()=>{
+    const w=canvas.clientWidth,h=canvas.clientHeight;
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  });
+  ro.observe(canvas);
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.004;
+    tk.rotation.x=t*.2; tk.rotation.y=t*.3;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── MISSION THREE.JS ── */
+(function(){
+  if(typeof THREE==='undefined') return;
+  const canvas=document.getElementById('mission-canvas');
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,canvas.clientWidth/(canvas.clientHeight||420),.1,200);
+  camera.position.z=4;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(canvas.clientWidth,canvas.clientHeight||420);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  const ico=new THREE.Mesh(new THREE.IcosahedronGeometry(1.2,2),new THREE.MeshBasicMaterial({color:0xC9A063,wireframe:true,transparent:true,opacity:.2}));
+  scene.add(ico);
+
+  const pPos=new Float32Array(800*3);
+  for(let i=0;i<800*3;i++) pPos[i]=(Math.random()-.5)*12;
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xC9A063,size:.02,transparent:true,opacity:.25})));
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.005;
+    ico.rotation.x=t*.15; ico.rotation.y=t*.2;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
